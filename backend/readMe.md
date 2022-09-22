@@ -2,7 +2,8 @@
 
 ## Database Schema Design
 
-![](vscode-remote://wsl%2Bubuntu/home/ben/appacademy/mod4/myMod/w12/day2/backEnd_Project/authenticate-me/backend/img.png)
+![bnb_schema](https://user-images.githubusercontent.com/105961078/191814137-6e1dc7b1-c0c9-4b4a-9663-984c8c4cbf03.PNG)
+
 
 ## API Documentation
 
