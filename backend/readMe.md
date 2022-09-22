@@ -2,7 +2,7 @@
 
 ## Database Schema Design
 
-`<insert database schema design here>`
+![](vscode-remote://wsl%2Bubuntu/home/ben/appacademy/mod4/myMod/w12/day2/backEnd_Project/authenticate-me/backend/img.png)
 
 ## API Documentation
 
