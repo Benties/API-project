@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
-const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models')
+const { User, Spot, Review, SpotImage, sequelize, ReviewImage } = require('../../db/models')
 
 const router = express.Router();
 
@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
+
 
 
 router.put(
@@ -146,6 +147,30 @@ router.get(
 
     }
 )
+
+router.get(
+    '/:spotId/reviews',
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        if(spot){
+            const resBody = await Review.findAll({
+                where: {spotId: spot.id},
+                include: [
+                    { model: User, attributes: ['id', 'firstName', 'lastName'] },
+                    { model: ReviewImage, attributes: ['id', 'url'] }
+                ]
+            })
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
+
 
 router.get(
     '/:spotId',

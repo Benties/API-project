@@ -56,6 +56,8 @@ router.post(
 )
 
 
+
+
 router.get(
     '/current',
     requireAuth,
@@ -63,12 +65,12 @@ router.get(
         const resBody = await Review.findAll({
             where: { userId: req.user.id },
             include: [
-                { model: User, attributes: ['id', 'firstName', 'lastName'] }
-                // { model: Spot, }
-
+                { model: User, attributes: ['id', 'firstName', 'lastName'] },
+                { model: Spot },
+                { model: ReviewImage, attributes: ['id', 'url'] }
             ]
         })
-        res.json(resBody)
+        res.json({Reviews: resBody})
     }
   )
 
