@@ -17,7 +17,7 @@ router.post(
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
         const { url, preview } = req.body
-        if(spot){
+        if(spot && spot.ownerId === req.user.id){
             const spotImg = await SpotImage.create({
                 spotId: spot.id,
                 url,
@@ -56,6 +56,66 @@ router.post(
 
 
 
+router.get(
+    '/current',
+    requireAuth,
+    async (req, res, next) => {
+        let resBody = {}
+
+        resBody.Spots = await Spot.findAll({
+            where: {ownerId: req.user.id},
+            raw: true
+        })
+
+
+        for (const spot of resBody.Spots) {
+            const avg = await Review.findAll({
+              where: { spotId: spot.id },
+              attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'average']],
+              raw: true
+                })
+            const pic = await SpotImage.findAll({
+                where: {spotId: spot.id},
+                attributes: ['url', 'preview'],
+                raw: true
+            })
+                spot.avgRating = (Number(avg[0].average))
+                for(const pics of pic){
+                    console.log(pics)
+                    pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
+                }
+            }
+            res.json(
+                resBody
+            )
+
+    }
+)
+
+router.get(
+    '/:spotId',
+    async (req, res, next) => {
+
+
+        const spot = await Spot.findByPk(req.params.spotId, {
+            include: [SpotImage]
+        })
+
+        const avg = await Review.findAll({
+            where: { spotId: spot.id },
+            attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'average']],
+            raw: true
+        })
+
+        // const pics = await SpotImage.findAll({
+        //     where: {}
+        // })
+        const resBody = spot.toJSON()
+        resBody.avgStarRating = avg[0].average
+        console.log(avg)
+        res.json(resBody)
+    }
+)
 
 router.get(
     '/',
@@ -73,12 +133,15 @@ router.get(
           raw: true
             })
         const pic = await SpotImage.findAll({
-            where: {spotId: spot.id, preview: true},
-            attributes: ['url'],
+            where: {spotId: spot.id},
+            attributes: ['url', 'preview'],
             raw: true
         })
             spot.avgRating = (Number(avg[0].average))
-            pic[0] ? spot.previewImage = pic[0].url : spot.previewImage = null
+            for(const pics of pic){
+                console.log(pics)
+                pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
+            }
         }
         res.json(
             resBody
