@@ -19,6 +19,10 @@ module.exports = (sequelize, DataTypes) => {
         models.SpotImage,
         { foreignKey: 'spotId' }
       )
+      Spot.hasMany(
+        models.Booking,
+        { foreignKey: 'spotId' }
+      )
       Spot.belongsTo(
         models.User,
         { foreignKey: 'ownerId'}
