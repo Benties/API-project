@@ -40,6 +40,32 @@ router.put(
     }
 )
 
+
+router.post(
+    '/:spotId/reviews',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        const { review, stars } = req.body
+        if(spot && parseInt(stars)){
+            const resBody = await Review.create({
+                userId: req.user.id,
+                spotId: spot.id,
+                review,
+                stars
+            })
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
+
+
 router.post(
     '/:spotId/images',
     requireAuth,

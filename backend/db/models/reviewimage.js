@@ -23,6 +23,13 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'ReviewImage',
+    // scopes: {
+    //   addImg: {
+    //     attributes: {
+    //       exclude: ['updatedAt']
+    //     }
+    //   }
+    // }
   });
   return ReviewImage;
 };
