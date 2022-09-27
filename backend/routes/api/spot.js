@@ -1,6 +1,6 @@
 const express = require('express')
 
-const { setTokenCookie, restoreUser } = require('../../utils/auth')
+const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { User, Spot, Review, SpotImage, sequelize } = require('../../db/models')
 
 const router = express.Router();
@@ -9,6 +9,54 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
+
+
+router.post(
+    '/:spotId/images',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        const { url, preview } = req.body
+        if(spot){
+            const spotImg = await SpotImage.create({
+                spotId: spot.id,
+                url,
+                preview
+            })
+            const resBody = await SpotImage.findByPk(spotImg.id)
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({message: "Couldn't find a Spot with the specified id",
+                      statusCode: 404})
+        }
+    }
+)
+
+router.post(
+    '/',
+    requireAuth,
+    async (req, res, next) => {
+        const { address, city, state, country, lat, lng, name, description, price } = req.body
+        const newSpot = await Spot.create({
+            ownerId: req.user.id,
+            address,
+            city,
+            state,
+            country,
+            lat,
+            lng,
+            name,
+            description,
+            price
+        })
+        res.json(newSpot)
+    }
+)
+
+
+
+
 router.get(
     '/',
     async (req, res, next) => {
