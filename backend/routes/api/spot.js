@@ -55,6 +55,7 @@ router.post(
 )
 
 
+
 router.get(
     '/current',
     requireAuth,
@@ -74,17 +75,45 @@ router.get(
               raw: true
                 })
             const pic = await SpotImage.findAll({
-                where: {spotId: spot.id, preview: true},
-                attributes: ['url'],
+                where: {spotId: spot.id},
+                attributes: ['url', 'preview'],
                 raw: true
             })
                 spot.avgRating = (Number(avg[0].average))
-                pic[0] ? spot.previewImage = pic[0].url : spot.previewImage = null
+                for(const pics of pic){
+                    console.log(pics)
+                    pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
+                }
             }
             res.json(
                 resBody
             )
 
+    }
+)
+
+router.get(
+    '/:spotId',
+    async (req, res, next) => {
+
+
+        const spot = await Spot.findByPk(req.params.spotId, {
+            include: [SpotImage]
+        })
+
+        const avg = await Review.findAll({
+            where: { spotId: spot.id },
+            attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'average']],
+            raw: true
+        })
+
+        // const pics = await SpotImage.findAll({
+        //     where: {}
+        // })
+        const resBody = spot.toJSON()
+        resBody.avgStarRating = avg[0].average
+        console.log(avg)
+        res.json(resBody)
     }
 )
 
@@ -104,12 +133,15 @@ router.get(
           raw: true
             })
         const pic = await SpotImage.findAll({
-            where: {spotId: spot.id, preview: true},
-            attributes: ['url'],
+            where: {spotId: spot.id},
+            attributes: ['url', 'preview'],
             raw: true
         })
             spot.avgRating = (Number(avg[0].average))
-            pic[0] ? spot.previewImage = pic[0].url : spot.previewImage = null
+            for(const pics of pic){
+                console.log(pics)
+                pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
+            }
         }
         res.json(
             resBody
