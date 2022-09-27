@@ -11,13 +11,42 @@ const { Op } = require('sequelize');
 const { urlencoded } = require('express');
 
 
+router.put(
+    '/:spotId',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        if(spot && spot.ownerId === req.user.id){
+            const { address, city, state, country, lat, lng, name, description, price } = req.body
+            const resBody = await spot.update({
+                address,
+                city,
+                state,
+                country,
+                lat,
+                lng,
+                name,
+                description,
+                price
+            })
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
+
 router.post(
     '/:spotId/images',
     requireAuth,
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
-        const { url, preview } = req.body
         if(spot && spot.ownerId === req.user.id){
+            const { url, preview } = req.body
             const spotImg = await SpotImage.create({
                 spotId: spot.id,
                 url,
@@ -98,22 +127,30 @@ router.get(
 
 
         const spot = await Spot.findByPk(req.params.spotId, {
-            include: [SpotImage]
+            include: [{model: SpotImage}, {model: User, as: 'Owner', attributes: ['id', 'firstName', 'lastName']}]
         })
+        if(spot){
+            const data = await Review.findAll({
+                where: { spotId: spot.id },
+                attributes: [
+                    [sequelize.fn('AVG', sequelize.col('stars')), 'average'],
+                    [sequelize.fn('COUNT', sequelize.col('id')), 'count']
+                ],
+                raw: true
+            })
 
-        const avg = await Review.findAll({
-            where: { spotId: spot.id },
-            attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'average']],
-            raw: true
-        })
-
-        // const pics = await SpotImage.findAll({
-        //     where: {}
-        // })
-        const resBody = spot.toJSON()
-        resBody.avgStarRating = avg[0].average
-        console.log(avg)
-        res.json(resBody)
+            const resBody = spot.toJSON()
+            resBody.numReviews = data[0].count
+            resBody.avgStarRating = data[0].average
+            await User.findByPk(spot.ownerId)
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                message: "Spot couldn't be found",
+                statusCode: 404
+              })
+        }
     }
 )
 
