@@ -17,7 +17,7 @@ router.post(
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
         const { url, preview } = req.body
-        if(spot){
+        if(spot && spot.ownerId === req.user.id){
             const spotImg = await SpotImage.create({
                 spotId: spot.id,
                 url,
@@ -55,7 +55,38 @@ router.post(
 )
 
 
+router.get(
+    '/current',
+    requireAuth,
+    async (req, res, next) => {
+        let resBody = {}
 
+        resBody.Spots = await Spot.findAll({
+            where: {ownerId: req.user.id},
+            raw: true
+        })
+
+
+        for (const spot of resBody.Spots) {
+            const avg = await Review.findAll({
+              where: { spotId: spot.id },
+              attributes: [[sequelize.fn('AVG', sequelize.col('stars')), 'average']],
+              raw: true
+                })
+            const pic = await SpotImage.findAll({
+                where: {spotId: spot.id, preview: true},
+                attributes: ['url'],
+                raw: true
+            })
+                spot.avgRating = (Number(avg[0].average))
+                pic[0] ? spot.previewImage = pic[0].url : spot.previewImage = null
+            }
+            res.json(
+                resBody
+            )
+
+    }
+)
 
 router.get(
     '/',
