@@ -8,8 +8,8 @@ module.exports = (sequelize, DataTypes) => {
   class User extends Model {
 
     toSafeObject(){
-      const { id, username, email } = this
-      return { id, username, email }
+      const { id, firstName, lastName, email, username } = this
+      return { id, firstName, lastName, email, username }
     };
 
     validatePassword(password) {
@@ -31,7 +31,7 @@ module.exports = (sequelize, DataTypes) => {
         }
       });
       if (user && user.validatePassword(password)) {
-        return await User.scope('currentUser').findByPk(user.id);
+        return await User.scope('signup').findByPk(user.id);
       }
     }
 
@@ -44,7 +44,7 @@ module.exports = (sequelize, DataTypes) => {
         firstName,
         lastName
       });
-      return await User.scope('currentUser').findByPk(user.id);
+      return await User.scope('signup').findByPk(user.id);
     };
 
     static associate(models) {
@@ -114,6 +114,11 @@ module.exports = (sequelize, DataTypes) => {
         },
         loginUser: {
           attributes: {}
+        },
+        signup: {
+          attributes: {
+            exclude: ['createdAt', 'updatedAt', 'hashedPassword']
+          }
         }
       }
    }
