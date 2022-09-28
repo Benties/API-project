@@ -10,6 +10,37 @@ const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
 
+router.delete(
+    '/:bookingId',
+    requireAuth,
+    async (req, res, next) => {
+        const booking = await Booking.findByPk(req.params.bookingId,{
+            include: [
+                {
+                    model: Spot,
+                    attributes: ['ownerId']
+                }
+            ]
+        })
+        // console.log(booking)
+        if(booking){
+            if(booking.userId === req.user.id || booking.Spot.ownerId === req.user.id){
+            }
+            await booking.destroy()
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+              })
+
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Booking couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
 
 router.put(
     '/:bookingId',
@@ -50,7 +81,6 @@ router.get(
             },
         ],
     })
-
     const imgUrl = await SpotImage.findAll({
         where: {spotId: booking[0].Spot.id},
         attributes: ['url'],

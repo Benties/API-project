@@ -71,6 +71,11 @@ app.use((err, _req, _res, next) => {
     err.errors = err.errors.map((e) => e.message);
     err.title = 'Validation error';
   }
+  for (bad of err.errors){
+    if(bad.includes('unique')){
+      err.status = 403
+    }
+  }
   next(err);
 });
 

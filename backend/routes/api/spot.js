@@ -9,9 +9,28 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
-const booking = require('../../db/models/booking');
 
 
+router.delete(
+    '/:spotId',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        if(spot && spot.ownerId === req.user.id){
+            await spot.destroy()
+            res.json({
+                "message": "Successfully deleted",
+                "statusCode": 200
+              })
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
 
 router.put(
     '/:spotId',
