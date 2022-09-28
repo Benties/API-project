@@ -1,7 +1,7 @@
 const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
-const { User, Spot, Review, SpotImage, sequelize, ReviewImage } = require('../../db/models')
+const { User, Spot, Review, SpotImage, sequelize, ReviewImage, Booking } = require('../../db/models')
 
 const router = express.Router();
 
@@ -29,6 +29,30 @@ router.put(
                 name,
                 description,
                 price
+            })
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
+
+router.post(
+    '/:spotId/bookings',
+    requireAuth,
+    async (req, res, next) => {
+        const { startDate, endDate } = req.body
+        const spot = await Spot.findByPk(req.params.spotId)
+        if(spot && spot.ownerId !== req.user.id){
+            const resBody = await Booking.create({
+                spotId: spot.id,
+                userId: req.user.id,
+                startDate,
+                endDate
             })
             res.json(resBody)
         } else {
