@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
+const booking = require('../../db/models/booking');
 
 
 
@@ -171,6 +172,32 @@ router.get(
 
     }
 )
+
+router.get(
+    '/:spotId/bookings',
+    requireAuth,
+    async (req, res, next) => {
+        const spot = await Spot.findByPk(req.params.spotId)
+        if(spot){
+            spot.ownerId === req.user.id ? x = [null, { model: User }] : x = ['customer', null]
+            const booking = await Booking.scope(x[0]).findAll({
+                where: {spotId: spot.id},
+                include:  x[1]
+            })
+            // console.log(x)
+            // console.log(req.user.id)
+            // console.log(spot.ownerId)
+            res.json(booking)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
+
 
 router.get(
     '/:spotId/reviews',

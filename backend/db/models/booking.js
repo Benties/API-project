@@ -29,6 +29,11 @@ module.exports = (sequelize, DataTypes) => {
   }, {
     sequelize,
     modelName: 'Booking',
+    scopes: {
+      customer: {
+        attributes: ['spotId', 'startDate', 'endDate']
+      }
+    }
   });
   return Booking;
 };
