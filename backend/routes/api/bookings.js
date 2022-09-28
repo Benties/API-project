@@ -11,7 +11,27 @@ const { Op } = require('sequelize');
 const { urlencoded } = require('express');
 
 
-
+router.put(
+    '/:bookingId',
+    requireAuth,
+    async (req, res, next) => {
+        const booking = await Booking.findByPk(req.params.bookingId)
+        const { startDate, endDate } = req.body
+        if(booking && booking.userId === req.user.id){
+            const resBody = await booking.update({
+                startDate,
+                endDate
+            })
+            res.json(resBody)
+        } else {
+            res.statusCode = 404
+            res.json({
+                "message": "Booking couldn't be found",
+                "statusCode": 404
+              })
+        }
+    }
+)
 
 
 router.get(
