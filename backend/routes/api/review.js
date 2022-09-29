@@ -2,13 +2,14 @@ const express = require('express')
 
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth')
 const { User, Spot, Review, SpotImage, sequelize, ReviewImage } = require('../../db/models')
-
+const { validateReview } = require('./spot.js')
 const router = express.Router();
 
 const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
+
 
 router.delete(
     '/:reviewId',
@@ -31,10 +32,11 @@ router.delete(
     }
   )
 
-
+/// EDIT REVIEW
 router.put(
     '/:reviewId',
     requireAuth,
+    validateReview,
     async (req, res, next) => {
         const { review, stars } = req.body
         const target = await Review.findByPk(req.params.reviewId)
@@ -54,11 +56,21 @@ router.put(
     }
 )
 
-
+// CREATE IMAGE FOR REVIEW
 router.post(
     '/:reviewId/images',
     requireAuth,
     async (req, res, next) => {
+        const count = await ReviewImage.count({
+            where: { reviewId: req.params.reviewId }
+        })
+        if(count >= 10){
+            res.statusCode = 403
+            return res.json({
+                "message": "Maximum number of images for this resource was reached",
+                "statusCode": 403
+              })
+        }
         const { url } = req.body
         const review = await Review.findByPk(req.params.reviewId)
         if(review && review.userId === req.user.id){
@@ -79,7 +91,7 @@ router.post(
 
 
 
-
+// GET REVIEWS OF CURRENT USER
 router.get(
     '/current',
     requireAuth,
@@ -88,7 +100,11 @@ router.get(
             where: { userId: req.user.id },
             include: [
                 { model: User, attributes: ['id', 'firstName', 'lastName'] },
-                { model: Spot },
+                { model: Spot ,
+                  attributes: {
+                    exclude: ['createdAt', 'updatedAt']
+                  }
+                },
                 { model: ReviewImage, attributes: ['id', 'url'] }
             ],
             // raw: true
@@ -101,7 +117,7 @@ router.get(
                 raw: true
             })
             // console.log(prevImg)
-            console.log(spot.Spot.dataValues)
+            // console.log(spot.Spot.dataValues)
             spot.Spot.dataValues.previewImage = prevImg.url
         }
         // const resBody = review.toJSON()
