@@ -1,7 +1,7 @@
 const router = require('express').Router();
 const sessionRouter = require('./session.js');
 const usersRouter = require('./users.js');
-const spotsRouter = require('./spot.js');
+const { router: spotsRouter } = require('./spot.js');
 const reviewsRouter = require('./review.js');
 const bookingRouter = require('./bookings.js');
 const { setTokenCookie, restoreUser, requireAuth } = require('../../utils/auth.js');
