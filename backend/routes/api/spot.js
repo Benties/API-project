@@ -127,7 +127,7 @@ router.post(
               })
             }
 
-        if(spot){
+        if(!spot){
             res.statusCode = 404
             return res.json({
                 "message": "Spot couldn't be found",
@@ -186,6 +186,16 @@ router.post(
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
         let { review, stars } = req.body
+        const reviews = await Review.findAll()
+        for(const review of reviews){
+            if(review.userId === req.user.id){
+                res.statusCode = 403
+                res.json({
+                    "message": "User already has a review for this spot",
+                    "statusCode": 403
+                  })
+            }
+        }
         if(spot){
             stars = parseInt(stars)
             const resBody = await Review.create({
@@ -275,7 +285,7 @@ router.get(
                 attributes: ['url', 'preview'],
                 raw: true
             })
-                spot.avgRating = (Number(avg[0].average))
+                Number(avg[0].average) !== 0 ? spot.avgRating = (Number(avg[0].average)) : spot.avgRating = "No Reviews yet"
                 for(const pics of pic){
                     console.log(pics)
                     pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
@@ -358,7 +368,7 @@ router.get(
 
             const resBody = spot.toJSON()
             resBody.numReviews = data[0].count
-            resBody.avgStarRating = data[0].average
+            Number(data[0].average) !== 0 ? resBody.avgStarRating = parseFloat(data[0].average).toFixed(1) : resBody.avgStarRating = "No reviews yet"
             await User.findByPk(spot.ownerId)
             res.json(resBody)
         } else {
@@ -374,11 +384,45 @@ router.get(
 router.get(
     '/',
     async (req, res, next) => {
-        let resBody = { }
+        let { page, size } = req.query
+        console.log(page)
+        if(page && page < 1){
+            res.statusCode = 400
+            res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+            "page": "Page must be greater than or equal to 1"}
+            })
+        }
+        if(size && size < 1){
+            res.statusCode = 400
+            res.json({
+            "message": "Validation Error",
+            "statusCode": 400,
+            "errors": {
+            "size": "Size must be greater than or equal to 1"}
+            })
+        }
+        page = parseInt(page)
+        size = parseInt(size)
+        const pagination = {}
+
+        if (Number.isNaN(size)) size = 20
+        if (Number.isNaN(page)) page = 1
+        if (size > 20) size = 20
+        if (page > 10) page = 10
+
+        pagination.limit = size
+        pagination.offset = size * (page - 1)
+
+        let resBody = {}
 
        resBody.Spots = await Spot.findAll({
+        ...pagination,
         raw: true
        })
+
 
        for (const spot of resBody.Spots) {
         const avg = await Review.findAll({
@@ -391,12 +435,15 @@ router.get(
             attributes: ['url', 'preview'],
             raw: true
         })
-            spot.avgRating = (Number(avg[0].average))
+        Number(avg[0].average) !== 0 ? spot.avgRating = parseFloat(avg[0].average).toFixed(1) : spot.avgRating = "No reviews yet"
             for(const pics of pic){
                 console.log(pics)
                 pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
             }
         }
+
+        resBody.page = page
+        resBody.size = size
         res.json(
             resBody
         )

@@ -13,13 +13,13 @@ module.exports = {
         spotId: 4,
         userId: 3,
         review: 'Vessel Condos was a great place to stay at',
-        stars: 4.5
+        stars: 5
       },
       {
         spotId: 5,
         userId: 4,
         review: 'One Manhattan Square was a great place to stay at',
-        stars: 4.5
+        stars: 4
       }
     ])
   },
