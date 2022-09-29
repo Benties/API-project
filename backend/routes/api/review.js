@@ -102,7 +102,7 @@ router.get(
                 { model: User, attributes: ['id', 'firstName', 'lastName'] },
                 { model: Spot ,
                   attributes: {
-                    exclude: ['createdAt', 'updatedAt']
+                    exclude: ['createdAt', 'updatedAt', 'description']
                   }
                 },
                 { model: ReviewImage, attributes: ['id', 'url'] }

@@ -187,16 +187,24 @@ router.post(
         const spot = await Spot.findByPk(req.params.spotId)
         let { review, stars } = req.body
         const reviews = await Review.findAll()
+        if(!spot){
+            res.statusCode = 404
+            return res.json({
+                "message": "Spot couldn't be found",
+                "statusCode": 404
+              })
+        }
+
         for(const review of reviews){
             if(review.userId === req.user.id){
                 res.statusCode = 403
-                res.json({
+                return res.json({
                     "message": "User already has a review for this spot",
                     "statusCode": 403
                   })
             }
         }
-        if(spot){
+
             stars = parseInt(stars)
             const resBody = await Review.create({
                 userId: req.user.id,
@@ -205,13 +213,7 @@ router.post(
                 stars
             })
             res.json(resBody)
-        } else {
-            res.statusCode = 404
-            res.json({
-                "message": "Spot couldn't be found",
-                "statusCode": 404
-              })
-        }
+
     }
 )
 
