@@ -136,7 +136,7 @@ router.get(
                 model: Spot,
                 attributes:
                 {
-                    exclude: ['createdAt', 'updatedAt'],
+                    exclude: ['createdAt', 'updatedAt', 'description'],
                 },
             },
         ],
