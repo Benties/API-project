@@ -369,7 +369,7 @@ router.get(
             })
 
             const resBody = spot.toJSON()
-            resBody.numReviews = data[0].count
+            resBody.numReviews = Number(data[0].count)
             Number(data[0].average) !== 0 ? resBody.avgStarRating = parseFloat(data[0].average).toFixed(1) : resBody.avgStarRating = "No reviews yet"
             await User.findByPk(spot.ownerId)
             res.json(resBody)
