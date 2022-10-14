@@ -60,7 +60,7 @@ router.post(
         return res.json(
            user.toSafeObject()
         );
-      } else return res.json({});
+      } else return res.json(null);
     }
   );
 
