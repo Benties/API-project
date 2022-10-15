@@ -5,13 +5,15 @@ import SignupFormPage from "./components/SignupFormPage";
 import * as sessionActions from "./store/session";
 import Navigation from "./components/Navigation";
 import AllSpots from './components/Spot'
-
+import SingleSpot from "./components/Spot/spotdetails";
+import { getAllSpots } from "./store/spot";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    // dispatch(getAllSpots())
   }, [dispatch]);
 
   return (
@@ -19,6 +21,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path='/spots/:spotId'>
+            <SingleSpot/>
+          </Route>
           <Route exact path='/' >
             <AllSpots />
           </Route>
