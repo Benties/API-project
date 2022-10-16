@@ -1,13 +1,19 @@
 import { useEffect } from "react";
-import { useParams } from "react-router-dom";
+import { useParams, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot } from "../../store/spot";
+import EditSpot from "./editSpot";
+
 
 
 const SingleSpot = () => {
    const dispatch = useDispatch()
    const { spotId } = useParams()
+   const history = useHistory()
 
+   const onClick = () => {
+    history.push(`/${spotId}/edit`)
+}
     useEffect(() => {
         dispatch(getOneSpot(spotId))
     },[dispatch, spotId])
@@ -19,6 +25,7 @@ const SingleSpot = () => {
     return (
         <div>
             {content}
+            <button onClick={onClick}>Edit Spot</button>
         </div>
     )
 }

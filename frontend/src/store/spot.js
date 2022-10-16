@@ -3,7 +3,7 @@ import { csrfFetch } from "./csrf"
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_ONE_SPOT = 'spots/LOAD_ONE_SPOT'
 const ADD_ONE_SPOT = 'spots/ADD_ONE_SPOT'
-
+const DELETE_SPOT = 'spots/DELETE_SPOT'
 
 // TODO: regular action creator
 export const load = (spots) => {
@@ -23,6 +23,13 @@ export const loadOne = (spot) => {
 export const addOne = (spot) => {
     return {
         type: ADD_ONE_SPOT,
+        spot
+    }
+}
+
+export const deleteOne = (spot) => {
+    return {
+        type: DELETE_SPOT,
         spot
     }
 }
@@ -49,13 +56,40 @@ export const getOneSpot = (id) => async dispatch => {
 }
 
 export const postSpot = (payload) => async dispatch => {
-    const res = await csrfFetch(`/api/spots${payload.id}`, {
+    const res = await csrfFetch(`/api/spots`, {
         method: 'POST',
         headers: {'Content-Type' : 'application/json'},
         body: JSON.stringify(payload)
     })
-    const spot = await res.json()
-    dispatch(addOne(spot))
+    if(res.ok){
+        const spot = await res.json()
+        dispatch(addOne(spot))
+        return spot
+
+    }
+}
+
+export const editSpot = (payload, id) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${id}`, {
+        method: 'PUT',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(payload)
+    })
+    if (res.ok){
+        const spot = await res.json()
+        dispatch(loadOne(spot))
+        return spot
+    }
+}
+
+export const deleteSpot = (payload) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${payload}`, {
+        method: 'DELETE'
+    })
+    if (res.ok) {
+        const spot  = await res.json()
+        dispatch(deleteOne(spot))
+    }
 }
 
 const initialState = {
@@ -81,6 +115,10 @@ const spotReducer = (state = initialState, action) => {
             const _newState = {...initialState}
             _newState.allSpots[action.spot.id] = action.spot
             return _newState
+        case DELETE_SPOT:
+            const newState_ = {...initialState}
+            delete newState_.allSpots[action.spot.id]
+            return newState_
         default:
             return state
     }

@@ -1,13 +1,16 @@
 import { useEffect } from "react"
 import { useSelector, useDispatch } from "react-redux"
+import { NavLink, useHistory } from "react-router-dom"
 import { getAllSpots } from "../../store/spot"
 
 
 const AllSpots = () => {
     const dispatch = useDispatch()
+    const history = useHistory()
 
-
-
+    // const onClick = () => {
+    //     history.push(`/spots/${}`)
+    // }
 
     useEffect(() => {
         dispatch(getAllSpots())
@@ -19,15 +22,17 @@ const AllSpots = () => {
         <>
         {spots.map(spot => (
             <div key={spot.id} className='spotCard' >
-                <div className='spotName'>
-                {spot.name}
-                </div>
-                <div className="spotLocation">
-                {spot.city}   {spot.country}
-                </div>
-                <div className="spotPrice">
-                ${spot.price} night
-                </div>
+                <NavLink to={`/spots/${spot.id}`}>
+                    <div className='spotName'>
+                    {spot.name}
+                    </div>
+                    <div className="spotLocation">
+                    {spot.city}   {spot.country}
+                    </div>
+                    <div className="spotPrice">
+                    ${spot.price} night
+                    </div>
+                </NavLink>
             </div>))}
         </>
 
