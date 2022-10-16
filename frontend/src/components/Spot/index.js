@@ -12,9 +12,9 @@ const AllSpots = () => {
     //     history.push(`/spots/${}`)
     // }
 
-    // useEffect(() => {
-    //     dispatch(getAllSpots())
-    // },[dispatch])
+    useEffect(() => {
+        dispatch(getAllSpots())
+    },[dispatch])
 
     const newSpot = () => {
         history.push('/spot/new')
@@ -40,8 +40,6 @@ const AllSpots = () => {
             </div>))}
             <button onClick={newSpot}> create new spot </button>
         </>
-
-
     )
 }
 

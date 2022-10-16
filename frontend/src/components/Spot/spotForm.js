@@ -16,11 +16,25 @@ const CreateSpot = () => {
     const [name, setName] = useState('')
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
+    const [errors,  setErrors] = useState([])
 
 
     useEffect(() => {
+        let errs = []
+        if(!address) errs.push('Street address is required')
+        if(!city) errs.push('City is required')
+        if(!state) errs.push('State is required')
+        if(!country) errs.push('Country is required')
+        // if(typeof(lat) !== Number) errs.push('Latitude is not valid')
+        // if(typeof lng !== Number) errs.push('Longitude is not valid')
+        if(name.length > 50) errs.push('Name must be less than 50 characters')
+        if(!description) errs.push('Description is required')
+        if(!price) errs.push('Price per day is required')
 
-    })
+        setErrors(errs)
+
+
+    },[address, city, state, country, name, description, price])
 
     const onSubmit = async e => {
         e.preventDefault()
@@ -43,66 +57,71 @@ const CreateSpot = () => {
         }
     }
     return (
-        <form onSubmit={onSubmit}>
-            <label>
-                Create a Spot
-                <input
-                    type='text'
-                    name='name'
-                    value={name}
-                    onChange={e => setName(e.target.value)}
-                    />    name
-                <input
-                    type='text'
-                    name='address'
-                    value={address}
-                    onChange={e => setAddress(e.target.value)}
-                    /> address
-                <input
-                    type='city'
-                    name='city'
-                    value={city}
-                    onChange={e => setCity(e.target.value)}
-                    /> city
-                <input
-                    type='text'
-                    name='state'
-                    value={state}
-                    onChange={e => setState(e.target.value)}
-                    /> state
-                <input
-                    type='text'
-                    name='country'
-                    value={country}
-                    onChange={e => setCountry(e.target.value)}
-                    /> country
-                <input
-                    type='number'
-                    name='lat'
-                    value={lat}
-                    onChange={e => setLat(e.target.value)}
-                    /> latitude
-                <input
-                    type='number'
-                    name='lng'
-                    value={lng}
-                    onChange={e => setLng(e.target.value)}
-                    /> longitude
-                <input
-                    type='text'
-                    name='description'
-                    value={description}
-                    onChange={e => setDescription(e.target.value)}
-                    /> description
-                <input
-                    type='number'
-                    name='price'
-                    value={price}
-                    onChange={e => setPrice(e.target.value)}
-                    /> price
-            </label>
-            <button>Post</button>
-        </form>
+            <form onSubmit={onSubmit}>
+                <ul>
+                    {errors.map((ele) => (
+                        <li key={ele}>{ele}</li>
+                    ))}
+                </ul>
+                <label>
+                    Create a Spot
+                    <input
+                        type='text'
+                        name='name'
+                        value={name}
+                        onChange={e => setName(e.target.value)}
+                        />    name
+                    <input
+                        type='text'
+                        name='address'
+                        value={address}
+                        onChange={e => setAddress(e.target.value)}
+                        /> address
+                    <input
+                        type='city'
+                        name='city'
+                        value={city}
+                        onChange={e => setCity(e.target.value)}
+                        /> city
+                    <input
+                        type='text'
+                        name='state'
+                        value={state}
+                        onChange={e => setState(e.target.value)}
+                        /> state
+                    <input
+                        type='text'
+                        name='country'
+                        value={country}
+                        onChange={e => setCountry(e.target.value)}
+                        /> country
+                    <input
+                        type='number'
+                        name='lat'
+                        value={lat}
+                        onChange={e => setLat(e.target.value)}
+                        /> latitude
+                    <input
+                        type='number'
+                        name='lng'
+                        value={lng}
+                        onChange={e => setLng(e.target.value)}
+                        /> longitude
+                    <input
+                        type='text'
+                        name='description'
+                        value={description}
+                        onChange={e => setDescription(e.target.value)}
+                        /> description
+                    <input
+                        type='number'
+                        name='price'
+                        value={price}
+                        onChange={e => setPrice(e.target.value)}
+                        /> price
+                </label>
+                <button>Post</button>
+            </form>
     )
 }
 

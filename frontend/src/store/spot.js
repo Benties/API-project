@@ -27,10 +27,10 @@ export const addOne = (spot) => {
     }
 }
 
-export const deleteOne = (spot) => {
+export const deleteOne = (spotId) => {
     return {
         type: DELETE_SPOT,
-        spot
+        spotId
     }
 }
 
@@ -88,10 +88,7 @@ export const deleteSpot = (payload) => async dispatch => {
         method: 'DELETE'
     })
     if (res.ok) {
-        const spot  = await res.json()
-        console.log('deleted spot', spot)
-        dispatch(deleteOne(spot))
-        return spot
+        dispatch(deleteOne(payload))
     }
 }
 
@@ -105,22 +102,22 @@ const initialState = {
 const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            const newState = {...initialState}
+            const newState = {...initialState, allSpots: {...state.allSpots}}
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
             return newState
         case LOAD_ONE_SPOT:
-            const newSpot = {...initialState}
+            const newSpot = {...initialState, allSpots: {...state.allSpots}}
             newSpot.singleSpot = action.spot
             return newSpot
         case ADD_ONE_SPOT:
-            const newerSpot = {...initialState}
+            const newerSpot = {...initialState, allSpots: {...state.allSpots} }
             newerSpot.allSpots[action.spot.id] = action.spot
             return newerSpot
         case DELETE_SPOT:
-            const newerState = {...initialState}
-            delete newerState.allSpots[action.spot.id]
+            const newerState = {...initialState, allSpots: {...state.allSpots} }
+            delete newerState.allSpots[action.spotId]
             return newerState
         default:
             return state
