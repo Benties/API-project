@@ -8,12 +8,14 @@ import AllSpots from './components/Spot'
 import SingleSpot from "./components/Spot/spotdetails";
 import CreateSpot from "./components/Spot/spotForm";
 import EditSpot from "./components/Spot/editSpot";
+import { getAllSpots, load } from "./store/spot";
 
 function App() {
   const dispatch = useDispatch();
   const [isLoaded, setIsLoaded] = useState(false);
   useEffect(() => {
     dispatch(sessionActions.restoreUser()).then(() => setIsLoaded(true));
+    dispatch(getAllSpots())
   }, [dispatch]);
 
   return (

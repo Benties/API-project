@@ -1,7 +1,7 @@
 import {useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams, useLocation } from 'react-router-dom'
-import { loadOne, editSpot, getOneSpot } from '../../store/spot'
+import { loadOne, editSpot, getOneSpot, deleteSpot } from '../../store/spot'
 
 
 const EditSpot = () => {
@@ -12,7 +12,7 @@ const EditSpot = () => {
     },[dispatch, spotId])
 
     const spot = useSelector(state => state.spot.singleSpot)
-
+    // if (!spot) return null
 
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
@@ -59,7 +59,13 @@ const EditSpot = () => {
             history.push(`/spots/${spotId}`)
         }
     }
+
+    const removeSpot = () => {
+        dispatch(deleteSpot(spotId))
+        history.push('/')
+    }
     return (
+        <>
         <form onSubmit={onSubmit}>
             <label>
                 Create a Spot
@@ -128,6 +134,8 @@ const EditSpot = () => {
             </label>
             <button>Post</button>
         </form>
+        <button onClick={removeSpot}>Remove this Spot</button>
+        </>
     )
 }
 

@@ -12,9 +12,13 @@ const AllSpots = () => {
     //     history.push(`/spots/${}`)
     // }
 
-    useEffect(() => {
-        dispatch(getAllSpots())
-    },[dispatch])
+    // useEffect(() => {
+    //     dispatch(getAllSpots())
+    // },[dispatch])
+
+    const newSpot = () => {
+        history.push('/spot/new')
+    }
 
     const spots = useSelector(state => Object.values(state.spot.allSpots))
 
@@ -34,6 +38,7 @@ const AllSpots = () => {
                     </div>
                 </NavLink>
             </div>))}
+            <button onClick={newSpot}> create new spot </button>
         </>
 
 
