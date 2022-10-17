@@ -4,7 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot, deleteSpot} from "../../store/spot";
 import EditSpot from "./editSpot";
 import { getReviews } from "../../store/review";
-import AllReviews from '../Review'
+// import AllReviews from '../Review'
 
 
 
@@ -54,7 +54,7 @@ const SingleSpot = () => {
     return (
         <div>
             {content}
-            <AllReviews/>
+            {/* <AllReviews/> */}
             <button onClick={onClick}>Edit Spot</button>
 
             <button onClick={removeSpot}>Remove Spot</button>
