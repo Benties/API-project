@@ -17,7 +17,9 @@ const SingleSpot = () => {
    const removeSpot = () => {
     const deleted = dispatch(deleteSpot(spotId))
     if(deleted){
-    history.push('/')
+    setTimeout(() => {
+        history.push('/')
+    },'1000')
     }
 }
 
