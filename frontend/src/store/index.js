@@ -1,4 +1,6 @@
 import { createStore, combineReducers, applyMiddleware, compose } from "redux";
+import { persistStore, persistReducer } from 'redux-persist'
+import storage from 'redux-persist/lib/storage' // defaults to localStorage for web
 import thunk from "redux-thunk";
 import reviewReducer from "./review";
 import sessionReducer from './session';
@@ -10,6 +12,13 @@ const rootReducer = combineReducers({
   spot: spotReducer,
   review: reviewReducer
 });
+
+const persistConfig = {
+  key: 'root',
+  storage,
+}
+
+const persistedReducer = persistReducer(persistConfig, rootReducer)
 
 let enhancer;
 
@@ -24,7 +33,10 @@ if (process.env.NODE_ENV === "production") {
 
 
 const configureStore = (preloadedState) => {
-  return createStore(rootReducer, preloadedState, enhancer);
+  // return createStore(rootReducer, preloadedState, enhancer);
+  let store = createStore(persistedReducer, preloadedState, enhancer)
+  let persistor = persistStore(store)
+  return { store, persistor }
 };
 
 
