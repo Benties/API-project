@@ -14,7 +14,7 @@ const SingleSpot = () => {
 
    const removeSpot = () => {
     dispatch(deleteSpot(spotId))
-    // return history.push('/')
+    return history.push('/')
 }
 
    const onClick = () => {
