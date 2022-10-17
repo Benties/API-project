@@ -83,7 +83,6 @@ export const editSpot = (payload, id) => async dispatch => {
 }
 
 export const deleteSpot = (payload) => async dispatch => {
-    console.log('sebas',   payload)
     const res = await csrfFetch(`/api/spots/${payload}`, {
         method: 'DELETE'
     })
@@ -108,7 +107,7 @@ const spotReducer = (state = initialState, action) => {
             })
             return newState
         case LOAD_ONE_SPOT:
-            const newSpot = {...initialState, allSpots: {...state.allSpots}}
+            const newSpot = {...initialState, allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot }}
             newSpot.singleSpot = action.spot
             return newSpot
         case ADD_ONE_SPOT:

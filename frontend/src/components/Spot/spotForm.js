@@ -74,6 +74,7 @@ const CreateSpot = () => {
                     <input
                         type='text'
                         name='address'
+                        required
                         value={address}
                         onChange={e => setAddress(e.target.value)}
                         /> address
