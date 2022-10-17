@@ -1,7 +1,7 @@
 import {useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
-import { postSpot } from '../../store/spot'
+import { postImg, postSpot } from '../../store/spot'
 
 
 const CreateSpot = () => {
@@ -17,6 +17,8 @@ const CreateSpot = () => {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [errors,  setErrors] = useState([])
+    const [imgUrl, setImgUrl] = useState('')
+    const [prev, setPreview] = useState(false)
 
 
     useEffect(() => {
@@ -50,9 +52,16 @@ const CreateSpot = () => {
             price
         }
 
+        const imgPayload = {
+            url: imgUrl,
+            preview: true
+        }
+
 
         let createdSpot = await dispatch(postSpot(formData))
         if(createdSpot){
+            dispatch(postImg(createdSpot.id, imgPayload))
+
             history.push(`/`)
         }
     }
@@ -68,58 +77,74 @@ const CreateSpot = () => {
                     <input
                         type='text'
                         name='name'
+                        placeholder='name'
                         value={name}
                         onChange={e => setName(e.target.value)}
-                        />    name
+                        />
                     <input
                         type='text'
                         name='address'
+                        placeholder='address'
                         required
                         value={address}
                         onChange={e => setAddress(e.target.value)}
-                        /> address
+                        />
                     <input
                         type='city'
                         name='city'
+                        placeholder='city'
                         value={city}
                         onChange={e => setCity(e.target.value)}
-                        /> city
+                        />
                     <input
                         type='text'
                         name='state'
+                        placeholder='state'
                         value={state}
                         onChange={e => setState(e.target.value)}
-                        /> state
+                        />
                     <input
                         type='text'
                         name='country'
+                        placeholder='country'
                         value={country}
                         onChange={e => setCountry(e.target.value)}
-                        /> country
+                        />
                     <input
                         type='number'
                         name='lat'
+                        placeholder='latitude'
                         value={lat}
                         onChange={e => setLat(e.target.value)}
-                        /> latitude
+                        />
                     <input
                         type='number'
                         name='lng'
+                        placeholder='longitutde'
                         value={lng}
                         onChange={e => setLng(e.target.value)}
-                        /> longitude
+                        />
                     <input
                         type='text'
                         name='description'
+                        placeholder='description'
                         value={description}
                         onChange={e => setDescription(e.target.value)}
-                        /> description
+                        />
                     <input
                         type='number'
                         name='price'
+                        placeholder='price'
                         value={price}
                         onChange={e => setPrice(e.target.value)}
-                        /> price
+                        />
+                    <input
+                        type='text'
+                        name='imageUrl'
+                        placeholder='Image Url'
+                        value={imgUrl}
+                        onChange={e => setImgUrl(e.target.value)}
+                        />
                 </label>
                 <button>Post</button>
             </form>

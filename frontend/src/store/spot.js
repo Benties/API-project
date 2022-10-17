@@ -4,6 +4,7 @@ const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_ONE_SPOT = 'spots/LOAD_ONE_SPOT'
 const ADD_ONE_SPOT = 'spots/ADD_ONE_SPOT'
 const DELETE_SPOT = 'spots/DELETE_SPOT'
+const ADD_IMG = 'spots/ADD_IMG'
 
 // TODO: regular action creator
 export const load = (spots) => {
@@ -31,6 +32,14 @@ export const deleteOne = (spotId) => {
     return {
         type: DELETE_SPOT,
         spotId
+    }
+}
+
+export const addImg = (spotId, imgObj) => {
+    return {
+        type: ADD_IMG,
+        spotId,
+        imgObj
     }
 }
 
@@ -91,6 +100,18 @@ export const deleteSpot = (payload) => async dispatch => {
     }
 }
 
+export const postImg = (spotId, imgUrl) => async dispatch => {
+    const res = await csrfFetch(`/api/spots/${spotId}/images`, {
+        method: 'POST',
+        headers: {'Content-Type' : 'application/json'},
+        body: JSON.stringify(imgUrl)
+    })
+    if (res.ok) {
+        const imgObj = await res.json()
+        dispatch(addImg(spotId, imgObj))
+    }
+}
+
 const initialState = {
     allSpots: {},
     singleSpot: {}
@@ -101,23 +122,28 @@ const initialState = {
 const spotReducer = (state = initialState, action) => {
     switch (action.type) {
         case LOAD_SPOTS:
-            const newState = {...initialState, allSpots: {...state.allSpots}}
+            const newState = {...state, allSpots: {...state.allSpots}}
             action.spots.Spots.forEach(spot => {
                 newState.allSpots[spot.id] = spot
             })
             return newState
         case LOAD_ONE_SPOT:
-            const newSpot = {...initialState, allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot }}
+            const newSpot = {...state, allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot }}
             newSpot.singleSpot = action.spot
             return newSpot
         case ADD_ONE_SPOT:
-            const newerSpot = {...initialState, allSpots: {...state.allSpots} }
+            const newerSpot = {...state, allSpots: {...state.allSpots} }
             newerSpot.allSpots[action.spot.id] = action.spot
             return newerSpot
         case DELETE_SPOT:
-            const newerState = {...initialState, allSpots: {...state.allSpots} }
+            const newerState = {...state, allSpots: {...state.allSpots} }
             delete newerState.allSpots[action.spotId]
             return newerState
+        case ADD_IMG:
+            const newNewState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }
+            newNewState.allSpots[action.spotId].SpotImages.push(action.imgObj)
+            newNewState.singleSpot.SpotImages.push(action.imgObj)
+            return newNewState
         default:
             return state
     }

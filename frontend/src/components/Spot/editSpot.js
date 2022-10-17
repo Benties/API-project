@@ -7,13 +7,13 @@ import { loadOne, editSpot, getOneSpot, deleteSpot } from '../../store/spot'
 const EditSpot = () => {
     const { spotId } = useParams()
     const dispatch = useDispatch()
+    const spot = useSelector(state => state.spot.singleSpot)
     useEffect(() => {
-        dispatch(loadOne(spotId))
+        dispatch(getOneSpot(spotId))
     },[dispatch, spotId])
 
-    const spot = useSelector(state => state.spot.singleSpot)
     // if (!spot) return null
-
+    console.log('this is spot', spot)
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
     const [state, setState] = useState(spot.state)
@@ -23,6 +23,7 @@ const EditSpot = () => {
     const [name, setName] = useState(spot.name)
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
+
     const history = useHistory()
 
     // useEffect(() => {
@@ -35,7 +36,7 @@ const EditSpot = () => {
     //     setName(spot.name)
     //     setDescription(spot.description)
     //     setPrice(spot.price)
-    // },[dispatch])
+    // },)
 
     const updateName = (e) => setName(e.target.value)
 

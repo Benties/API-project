@@ -28,7 +28,7 @@ export const getReviews = (spotId) => async dispatch => {
 const reviewReducer = (state={}, action) => {
     switch (action.type) {
         case LOAD_REVIEWS:
-            const newState = {...state}
+            const newState = {}
             action.reviews.Reviews.forEach(review => {
                 newState[review.id] = review
             })

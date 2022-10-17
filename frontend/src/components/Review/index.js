@@ -5,23 +5,23 @@ import { getReviews } from "../../store/review"
 
 
 const AllReviews = ({spot}) => {
-let spotId
-if(spot) spotId = spot
+
 const dispatch = useDispatch()
 // TODO: call your thunk to dispatch the current spot to get reviews
 
     useEffect(() => {
-        dispatch(getReviews(spotId))
-    },[dispatch,spotId])
+        dispatch(getReviews(spot.id))
+        console.log('review spotttttttttttttttt', spot)
+    },[dispatch,spot.id])
 
 ///TODO: query the state of redux to get the reviews
     const reviews = useSelector(state => Object.values(state.review))
-
+    console.log('REVIEWS!!!!!!!!!!!!!!', reviews)
 
     let review
     if(reviews[0]) review = reviews[0].id
     return (
-        <div>REVIEWS!!!!</div>
+        <div> All Reviews{reviews.map(ele => (<li key={ele.id}>{ele.review}</li>))}</div>
     )
 }
 
