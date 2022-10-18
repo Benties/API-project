@@ -10,6 +10,7 @@ import CreateSpot from "./components/Spot/spotForm";
 import EditSpot from "./components/Spot/editSpot";
 import { getAllSpots, load } from "./store/spot";
 import CreateFormModal from "./components/Review/reviewModal";
+import Manager from "./components/Spot/spotManagement";
 
 function App() {
   const dispatch = useDispatch();
@@ -24,6 +25,9 @@ function App() {
       <Navigation isLoaded={isLoaded} />
       {isLoaded && (
         <Switch>
+          <Route path='/hosting'>
+              <Manager/>
+          </Route>
           <Route path='/:spotId/reviews'>
             <CreateFormModal/>
           </Route>

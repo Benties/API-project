@@ -17,9 +17,9 @@ const SingleSpot = () => {
     const deleted = dispatch(deleteSpot(spotId))
     if(deleted){
         history.push('/Loading')
-    setTimeout(() => {
-        history.push('/')
-    },500)
+        setTimeout(() => {
+            history.push('/')
+        },500)
     }
 }
 
@@ -29,19 +29,17 @@ const SingleSpot = () => {
     history.push(`/${spotId}/edit`)
 }
 
-// TODO: dipatch thunk with a payload of the current spots Id
-// const [numReviews, setNumReviews] = useState(false)
+
 
 // TODO: use redux to get the current spot and set that to a const
 const spot = useSelector(state => state.spot.singleSpot)
-// const spotRev = useSelector(state => state.review)
+
+// TODO: dipatch thunk with a payload of the current spots Id
 useEffect(() => {
     dispatch(getOneSpot(spotId))
 },[dispatch, spotId])
 
-    // useEffect(() => {
-    //     dispatch(getOneSpot(spotId))
-    // },[spot])
+
 // TODO: Optional chaining????
     if(!spot) return null
 // TODO: set a ternary so that you can query for the current spot and give your page time to render

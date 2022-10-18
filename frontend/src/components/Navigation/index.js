@@ -11,12 +11,16 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <ProfileButton user={sessionUser} />
+      <div>
+        <NavLink to='/spot/new'>Switch to hosting</NavLink>
+        <ProfileButton user={sessionUser} />
+      </div>
     );
   } else {
     sessionLinks = (
       <>
         <LoginFormModal />
+        <NavLink to='/hosting'>Switch to hosting</NavLink>
         <NavLink to="/signup">Sign Up</NavLink>
       </>
     );
