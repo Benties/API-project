@@ -24,15 +24,17 @@ const AllSpots = () => {
 
     return (
         <>
-        {spots.map(spot => (
+        {spots?.map(spot => (
             <div key={spot.id} className='spotCard' >
                 <NavLink to={`/spots/${spot.id}`}>
+                    <img className='spotImage' src={spot?.previewImage}/>
                     <div className='spotName'>
                     {spot.name}
                     </div>
                     <div className="spotLocation">
                     {spot.city}   {spot.country}
                     </div>
+                    <div className='spotRating'>{spot.avgRating}</div>
                     <div className="spotPrice">
                     ${spot.price} night
                     </div>
