@@ -1,6 +1,7 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteReview, getReviews } from "../../store/review"
+import { getOneSpot } from "../../store/spot"
 
 
 
@@ -21,6 +22,7 @@ const userId = useSelector(state => state.session.user)
 
 const deleteRev = (id) => {
     dispatch(deleteReview(id))
+    dispatch(getOneSpot(spot.id))
 }
 
 const deleteButton = (userid, revId) => userid === userId.id ? <button onClick={() => deleteRev(revId)}>Delete</button> : null
@@ -29,7 +31,7 @@ const deleteButton = (userid, revId) => userid === userId.id ? <button onClick={
     return (
         <div> All Reviews{reviews.map(ele =>
             (<ul>
-                <li key={ele.id}>{ele.review}</li>
+                <div key={ele.id}>{ele?.User?.firstName}: {ele.review}</div>
                 {deleteButton(ele.userId, ele.id)}
             </ul>
 

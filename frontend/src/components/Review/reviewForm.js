@@ -2,12 +2,12 @@ import { useEffect, useState } from "react"
 import { useDispatch } from "react-redux"
 import { useHistory, useParams } from "react-router-dom"
 import { createReview } from "../../store/review"
+import { getOneSpot } from "../../store/spot"
 
 
 
 const CreateReview = ({spot, setShowModal}) => {
     const dispatch = useDispatch()
-    const history = useHistory()
     const [rev, setReview] = useState()
     const [star, setStar] = useState(5)
 
@@ -27,6 +27,8 @@ const CreateReview = ({spot, setShowModal}) => {
         if(newRev){
             setShowModal(false)
         }
+
+        dispatch(getOneSpot(spot.id))
     }
 
     return (

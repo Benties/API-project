@@ -34,10 +34,10 @@ const SingleSpot = () => {
 
 // TODO: use redux to get the current spot and set that to a const
 const spot = useSelector(state => state.spot.singleSpot)
-const spotRev = useSelector(state => state.review)
+// const spotRev = useSelector(state => state.review)
 useEffect(() => {
     dispatch(getOneSpot(spotId))
-},[dispatch, spotId, spotRev.length])
+},[dispatch, spotId])
 
     // useEffect(() => {
     //     dispatch(getOneSpot(spotId))
