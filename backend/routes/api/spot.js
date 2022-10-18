@@ -186,7 +186,12 @@ router.post(
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
         let { review, stars } = req.body
-        const reviews = await Review.findAll()
+        const reviews = await Review.findAll({
+            where: {
+                userId: req.user.id,
+                spotId: spot.id
+            }
+        })
         if(!spot){
             res.statusCode = 404
             return res.json({
@@ -195,15 +200,23 @@ router.post(
               })
         }
 
-        for(const review of reviews){
-            if(review.userId === req.user.id){
-                res.statusCode = 403
-                return res.json({
-                    "message": "User already has a review for this spot",
-                    "statusCode": 403
-                  })
-            }
+        if (spot.ownerId === req.user.id) {
+            res.statusCode = 403
+            return res.json({
+                'message': 'You cant make a review for your own spot',
+                'statusCode': 403
+            })
         }
+
+
+        if(reviews.length > 0){
+            res.statusCode = 403
+            return res.json({
+                "message": "User already has a review for this spot",
+                "statusCode": 403
+            })
+        }
+
 
             stars = parseInt(stars)
             const resBody = await Review.create({

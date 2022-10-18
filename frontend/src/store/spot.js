@@ -141,7 +141,7 @@ const spotReducer = (state = initialState, action) => {
             return newerState
         case ADD_IMG:
             const newNewState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }
-            newNewState.allSpots[action.spotId].SpotImages.push(action.imgObj)
+            newNewState.allSpots[action.spotId].previewImage = action.imgObj
             newNewState.singleSpot.SpotImages.push(action.imgObj)
             return newNewState
         default:

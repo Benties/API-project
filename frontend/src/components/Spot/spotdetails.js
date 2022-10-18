@@ -1,9 +1,9 @@
-import { useEffect } from "react";
+import { useEffect, useState } from "react";
 import { useParams, useHistory, Link } from "react-router-dom";
 import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot, deleteSpot} from "../../store/spot";
-import EditSpot from "./editSpot";
 import AllReviews from '../Review'
+import CreateFormModal from "../Review/reviewModal";
 
 
 
@@ -19,7 +19,7 @@ const SingleSpot = () => {
         history.push('/Loading')
     setTimeout(() => {
         history.push('/')
-    },'1000')
+    },500)
     }
 }
 
@@ -30,19 +30,30 @@ const SingleSpot = () => {
 }
 
 // TODO: dipatch thunk with a payload of the current spots Id
-   useEffect(() => {
-           dispatch(getOneSpot(spotId))
-   },[dispatch, spotId])
+// const [numReviews, setNumReviews] = useState(false)
 
 // TODO: use redux to get the current spot and set that to a const
-    const spot = useSelector(state => state.spot.singleSpot)
+const spot = useSelector(state => state.spot.singleSpot)
+const spotRev = useSelector(state => state.review)
+useEffect(() => {
+    dispatch(getOneSpot(spotId))
+},[dispatch, spotId, spotRev.length])
 
-
+    // useEffect(() => {
+    //     dispatch(getOneSpot(spotId))
+    // },[spot])
 // TODO: Optional chaining????
     if(!spot) return null
 // TODO: set a ternary so that you can query for the current spot and give your page time to render
     let content
-    spot? content = <div><li>{spot.name}</li> <AllReviews spot={spot}/> </div> : content = <div></div>
+    spot? content =
+    <div>
+        <h2>{spot.name}</h2>
+        <h4>{spot.avgStarRating}</h4>
+        <AllReviews spot={spot}/>
+
+    </div>
+    : content = <div></div>
     return (
         <div>
             {content}
@@ -50,7 +61,8 @@ const SingleSpot = () => {
             <button onClick={onClick}>Edit Spot</button>
 
             <button onClick={removeSpot}>Remove Spot</button>
-
+            {/* <button onClick={createReview}>Leave a Review</button> */}
+            <CreateFormModal spot={spot}/>
         </div>
     )
 }

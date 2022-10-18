@@ -12,7 +12,6 @@ const EditSpot = () => {
         dispatch(getOneSpot(spotId))
     },[dispatch, spotId])
 
-    // if (!spot) return null
     console.log('this is spot', spot)
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
@@ -26,17 +25,17 @@ const EditSpot = () => {
 
     const history = useHistory()
 
-    // useEffect(() => {
-    //     setAddress(spot.address)
-    //     setCity(spot.city)
-    //     setState(spot.state)
-    //     setCountry(spot.country)
-    //     setLat(spot.lat)
-    //     setLng(spot.lng)
-    //     setName(spot.name)
-    //     setDescription(spot.description)
-    //     setPrice(spot.price)
-    // },)
+    useEffect(() => {
+        setAddress(spot.address)
+        setCity(spot.city)
+        setState(spot.state)
+        setCountry(spot.country)
+        setLat(spot.lat)
+        setLng(spot.lng)
+        setName(spot.name)
+        setDescription(spot.description)
+        setPrice(spot.price)
+    },[spot])
 
     const updateName = (e) => setName(e.target.value)
 
@@ -65,6 +64,7 @@ const EditSpot = () => {
         dispatch(deleteSpot(spotId))
         history.push('/')
     }
+
     return (
         <>
         <form onSubmit={onSubmit}>

@@ -20,6 +20,18 @@ const CreateSpot = () => {
     const [imgUrl, setImgUrl] = useState('')
     const [prev, setPreview] = useState(false)
 
+    const testCreate = () => {
+        setAddress('test')
+        setCity('test')
+        setState('test')
+        setCountry('test')
+        setLat(3)
+        setLng(42)
+        setName('testing')
+        setDescription('testtesttsetstest')
+        setPrice(9999)
+        setImgUrl('testtestingserse.com')
+    }
 
     useEffect(() => {
         let errs = []
@@ -67,6 +79,7 @@ const CreateSpot = () => {
     }
     return (
             <form onSubmit={onSubmit}>
+                <button onClick={testCreate}>Testing</button>
                 <ul>
                     {errors.map((ele) => (
                         <li key={ele}>{ele}</li>

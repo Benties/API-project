@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { getReviews } from "../../store/review"
+import { deleteReview, getReviews } from "../../store/review"
 
 
 
@@ -11,17 +11,31 @@ const dispatch = useDispatch()
 
     useEffect(() => {
         dispatch(getReviews(spot.id))
-        console.log('review spotttttttttttttttt', spot)
-    },[dispatch,spot.id])
+    },[dispatch, spot.id, spot])
 
 ///TODO: query the state of redux to get the reviews
-    const reviews = useSelector(state => Object.values(state.review))
-    console.log('REVIEWS!!!!!!!!!!!!!!', reviews)
+const reviews = useSelector(state => Object.values(state.review))
 
-    let review
-    if(reviews[0]) review = reviews[0].id
+// TODO: query the user id and check if it matches the review.userId
+const userId = useSelector(state => state.session.user)
+
+const deleteRev = (id) => {
+    dispatch(deleteReview(id))
+}
+
+const deleteButton = (userid, revId) => userid === userId.id ? <button onClick={() => deleteRev(revId)}>Delete</button> : null
+
+
     return (
-        <div> All Reviews{reviews.map(ele => (<li key={ele.id}>{ele.review}</li>))}</div>
+        <div> All Reviews{reviews.map(ele =>
+            (<ul>
+                <li key={ele.id}>{ele.review}</li>
+                {deleteButton(ele.userId, ele.id)}
+            </ul>
+
+            ))}
+
+            </div>
     )
 }
 
