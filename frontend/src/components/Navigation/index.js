@@ -3,36 +3,38 @@ import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
 import LoginFormModal from '../LoginFormModal';
+import { useHistory } from 'react-router-dom';
 import './Navigation.css';
 
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state.session.user);
-
+  const history = useHistory()
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
       <div>
-        <NavLink to='/spot/new'>Switch to hosting</NavLink>
-        <ProfileButton user={sessionUser} />
+        <NavLink className='navContent' to='/spot/new'>Switch to hosting</NavLink>
+        <ProfileButton className='navContent' user={sessionUser} />
       </div>
     );
   } else {
     sessionLinks = (
       <>
         <LoginFormModal />
-        <NavLink to='/hosting'>Switch to hosting</NavLink>
-        <NavLink to="/signup">Sign Up</NavLink>
+        <NavLink className='navContent' to='/hosting'>Switch to hosting</NavLink>
+        <NavLink className='navContent' to="/signup">Sign Up</NavLink>
       </>
     );
   }
 
   return (
-    <ul>
-      <li>
-        <NavLink exact to="/">Home</NavLink>
+    <div className='navBar'>
+      {/* <li > */}
+        <input className='navContent' id='icon' type='image' src='https://i.imgur.com/CWfOQ4A.png' onClick={() => history.push('/')}></input>
+        {/* <NavLink className='navContent' exact to="/">Home</NavLink> */}
         {isLoaded && sessionLinks}
-      </li>
-    </ul>
+      {/* </li> */}
+    </div>
   );
 }
 

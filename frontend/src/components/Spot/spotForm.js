@@ -2,6 +2,7 @@ import {useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory } from 'react-router-dom'
 import { postImg, postSpot } from '../../store/spot'
+import './spotForm.css'
 
 
 const CreateSpot = () => {
@@ -30,7 +31,7 @@ const CreateSpot = () => {
         setName('testing')
         setDescription('testtesttsetstest')
         setPrice(9999)
-        setImgUrl('testtestingserse.com')
+        setImgUrl('https://i.imgur.com/bJhQYx1.jpg')
     }
 
     useEffect(() => {
@@ -78,7 +79,7 @@ const CreateSpot = () => {
         }
     }
     return (
-            <form onSubmit={onSubmit}>
+            <form onSubmit={onSubmit} className='spotForm'>
                 <button onClick={testCreate}>Testing</button>
                 <ul>
                     {errors.map((ele) => (

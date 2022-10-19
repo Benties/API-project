@@ -4,6 +4,7 @@ import { useDispatch, useSelector } from "react-redux";
 import { getOneSpot, deleteSpot} from "../../store/spot";
 import AllReviews from '../Review'
 import CreateFormModal from "../Review/reviewModal";
+import './spotDetails.css'
 
 
 
@@ -53,13 +54,13 @@ useEffect(() => {
     </div>
     : content = <div></div>
     return (
-        <div>
+        <div className="spotDetails">
             {content}
-            {/* <AllReviews spot={spot}/> */}
+
             <button onClick={onClick}>Edit Spot</button>
 
             <button onClick={removeSpot}>Remove Spot</button>
-            {/* <button onClick={createReview}>Leave a Review</button> */}
+     {/* TODO: review Modal */}
             <CreateFormModal spot={spot}/>
         </div>
     )

@@ -1,0 +1,16 @@
+.spotContainer{
+
+    display: grid;
+    padding: 10px;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(5, 1fr) ;
+    /* grid-template-rows: repeat(5, 1fr); */
+    /* align-items: center; */
+
+}
+.spotCard {
+    width: 100%;
+    height: 30%;
+    display: flex;
+}

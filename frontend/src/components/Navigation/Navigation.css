@@ -1,0 +1,35 @@
+* {
+    box-sizing: border-box;
+    margin: 0;
+    padding: 0;
+    background-color: aliceblue;
+}
+
+
+
+.navBar {
+
+    position: fixed;
+    top: 0;
+    display: flex;
+    width: 100%;
+    height: 35px;
+    z-index: 5;
+    align-items: center;
+    justify-content: space-between;
+    padding: 20px 2%;
+
+}
+
+.navContent {
+    text-decoration: none;
+    padding-right: 10px;
+}
+
+#icon {
+    position: relative;
+    top:0;
+    right:90px;
+    scale: .2;
+
+}
