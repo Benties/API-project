@@ -25,7 +25,7 @@ const deleteRev = (id) => {
     dispatch(getOneSpot(spot.id))
 }
 
-const deleteButton = (userid, revId) => userid === userId.id ? <button onClick={() => deleteRev(revId)}>Delete</button> : null
+const deleteButton = (userid, revId) => userid === userId.id ? <button onClick={() => deleteRev(revId)}>Delete Review</button> : null
 
 
     return (

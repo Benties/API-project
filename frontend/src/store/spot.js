@@ -2,6 +2,7 @@ import { csrfFetch } from "./csrf"
 //TODO:
 const LOAD_SPOTS = 'spots/LOAD_SPOTS'
 const LOAD_ONE_SPOT = 'spots/LOAD_ONE_SPOT'
+const LOAD_CURRENT_OWNERS_SPOT = 'spots/LOAD_CURRENT_OWNERS_SPOT'
 const ADD_ONE_SPOT = 'spots/ADD_ONE_SPOT'
 const DELETE_SPOT = 'spots/DELETE_SPOT'
 const ADD_IMG = 'spots/ADD_IMG'
@@ -18,6 +19,13 @@ export const loadOne = (spot) => {
     return {
         type: LOAD_ONE_SPOT,
         spot
+    }
+}
+
+export const loadCurrentOwners = (spots) => {
+    return {
+        type: LOAD_CURRENT_OWNERS_SPOT,
+        spots
     }
 }
 
@@ -55,12 +63,18 @@ export const getAllSpots = () => async dispatch =>{
 
 export const getOneSpot = (id) => async dispatch => {
     const res = await csrfFetch(`/api/spots/${id}`)
-    console.log('res', res)
     if(res.ok){
         const spot = await res.json()
-        console.log('this is spot' , spot)
         dispatch(loadOne(spot))
 
+    }
+}
+
+export const getCurrentOwnerSpot = () => async dispatch => {
+    const res = await csrfFetch('/api/spots/current')
+    if (res.ok) {
+        const spots = await res.json()
+        dispatch(loadCurrentOwners(spots))
     }
 }
 
@@ -114,7 +128,8 @@ export const postImg = (spotId, imgUrl) => async dispatch => {
 
 const initialState = {
     allSpots: {},
-    singleSpot: {}
+    singleSpot: {},
+    ownersSpot: {}
 }
 
 
@@ -131,13 +146,20 @@ const spotReducer = (state = initialState, action) => {
             const newSpot = {...state, allSpots: { ...state.allSpots }, singleSpot: { ...state.singleSpot }}
             newSpot.singleSpot = action.spot
             return newSpot
+        case LOAD_CURRENT_OWNERS_SPOT:
+            const newesterestSpot = {...state}
+            action.spots.Spots.forEach(spot => {
+                newesterestSpot.ownersSpot[spot.id] = spot
+            })
+            return newesterestSpot
         case ADD_ONE_SPOT:
             const newerSpot = {...state, allSpots: {...state.allSpots} }
             newerSpot.allSpots[action.spot.id] = action.spot
             return newerSpot
         case DELETE_SPOT:
-            const newerState = {...state, allSpots: {...state.allSpots} }
+            const newerState = {...state, allSpots: {...state.allSpots}, ownersSpot: {...state.ownersSpot} }
             delete newerState.allSpots[action.spotId]
+            delete newerState.ownersSpot[action.spotId]
             return newerState
         case ADD_IMG:
             const newNewState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }

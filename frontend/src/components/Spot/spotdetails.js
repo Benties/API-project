@@ -13,23 +13,6 @@ const SingleSpot = () => {
    const { spotId } = useParams()
    const history = useHistory()
 
-/// TODO: Click on button to delete spot by spotId then redirect to home page
-   const removeSpot = () => {
-    const deleted = dispatch(deleteSpot(spotId))
-    if(deleted){
-        history.push('/Loading')
-        setTimeout(() => {
-            history.push('/')
-        },500)
-    }
-}
-
-
-// TODO: redirect to edit page of the target spot
-   const onClick = () => {
-    history.push(`/${spotId}/edit`)
-}
-
 
 
 // TODO: use redux to get the current spot and set that to a const
@@ -48,7 +31,21 @@ useEffect(() => {
     spot? content =
     <div>
         <h2>{spot.name}</h2>
-        <h4>{spot.avgStarRating}</h4>
+        <div className="spotDescription">
+            <h6>{spot.avgStarRating}</h6>
+            <h6>{spot.numReviews}</h6>
+            <h6>SuperHost</h6>
+            <h6>{spot.city},{spot.state},{spot.country}</h6>
+        </div>
+        <div className='spotImages'>
+            {spot?.SpotImages?.map(img => (
+                <img className='eachImg' src={img.url} width='100px' height='100px'/>
+            ))}
+        </div>
+        <div className='ownerInfo'>
+            <h3>Entire Spot hosted by {spot.Owner.firstName}</h3>
+            <p>3 guests . 2 bedrooms . 14 beds . .5 baths</p>
+        </div>
         <AllReviews spot={spot}/>
 
     </div>
@@ -57,9 +54,6 @@ useEffect(() => {
         <div className="spotDetails">
             {content}
 
-            <button onClick={onClick}>Edit Spot</button>
-
-            <button onClick={removeSpot}>Remove Spot</button>
      {/* TODO: review Modal */}
             <CreateFormModal spot={spot}/>
         </div>

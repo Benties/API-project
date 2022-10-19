@@ -54,8 +54,8 @@ const EditSpot = () => {
         }
 
 
-        let createdSpot = await dispatch(editSpot(formData, spotId))
-        if(createdSpot){
+        let editedSpot = await dispatch(editSpot(formData, spotId))
+        if(editedSpot){
             history.push(`/spots/${spotId}`)
         }
     }
