@@ -39,11 +39,11 @@ useEffect(() => {
         </div>
         <div className='spotImages'>
             {spot?.SpotImages?.map(img => (
-                <img className='eachImg' src={img.url} width='100px' height='100px'/>
+                <img className='eachImg' src={img?.url} width='100px' height='100px'/>
             ))}
         </div>
         <div className='ownerInfo'>
-            <h3>Entire Spot hosted by {spot.Owner.firstName}</h3>
+            <h3>Entire Spot hosted by {spot?.Owner?.firstName}</h3>
             <p>3 guests . 2 bedrooms . 14 beds . .5 baths</p>
         </div>
         <AllReviews spot={spot}/>
