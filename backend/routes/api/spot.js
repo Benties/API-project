@@ -300,7 +300,7 @@ router.get(
                 attributes: ['url', 'preview'],
                 raw: true
             })
-                Number(avg[0].average) !== 0 ? spot.avgRating = (Number(avg[0].average)) : spot.avgRating = "No Reviews yet"
+                Number(avg[0].average) !== 0 ? spot.avgRating = (Number(avg[0].average)) : spot.avgRating = "New"
                 for(const pics of pic){
                     console.log(pics)
                     pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
@@ -383,7 +383,7 @@ router.get(
 
             const resBody = spot.toJSON()
             resBody.numReviews = Number(data[0].count)
-            Number(data[0].average) !== 0 ? resBody.avgStarRating = parseFloat(data[0].average).toFixed(1) : resBody.avgStarRating = "No reviews yet"
+            Number(data[0].average) !== 0 ? resBody.avgStarRating = parseFloat(data[0].average).toFixed(1) : resBody.avgStarRating = "New"
             await User.findByPk(spot.ownerId)
             res.json(resBody)
         } else {
@@ -450,7 +450,7 @@ router.get(
             attributes: ['url', 'preview'],
             raw: true
         })
-        Number(avg[0].average) !== 0 ? spot.avgRating = parseFloat(avg[0].average).toFixed(1) : spot.avgRating = "No reviews yet"
+        Number(avg[0].average) !== 0 ? spot.avgRating = parseFloat(avg[0].average).toFixed(1) : spot.avgRating = "New"
             for(const pics of pic){
                 console.log(pics)
                 pics.preview ? spot.previewImage = pics.url : spot.previewImage = null

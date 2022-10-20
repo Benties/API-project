@@ -12,18 +12,18 @@ function Navigation({ isLoaded }){
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
-      <div>
-        <NavLink className='navContent' to='/spot/new'>Switch to hosting</NavLink>
-        <ProfileButton className='navContent' user={sessionUser} />
+      <div className='navContent'>
+        <NavLink className='hostingButt' to='/spot/new'>Switch to hosting</NavLink>
+        <ProfileButton className='profileDrop' user={sessionUser} />
       </div>
     );
   } else {
     sessionLinks = (
-      <>
+      <div className='navContent'>
         <LoginFormModal />
-        <NavLink className='navContent' to='/hosting'>Switch to hosting</NavLink>
-        <NavLink className='navContent' to="/signup">Sign Up</NavLink>
-      </>
+        <NavLink className='hostingButt' to='/hosting'>Become a Host</NavLink>
+        <NavLink className='signUpButt' to="/signup">Sign Up</NavLink>
+      </div >
     );
   }
 

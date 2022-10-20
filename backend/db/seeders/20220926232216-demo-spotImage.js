@@ -5,27 +5,27 @@ module.exports = {
     return queryInterface.bulkInsert('SpotImages', [
       {
         spotId: 1,
-        url: 'fakeImgSpot1',
+        url: 'https://i.imgur.com/i9FRJEo.jpg',
         preview: true
       },
       {
         spotId: 2,
-        url: 'fakeImgSpot2',
-        preview: false
+        url: 'https://i.imgur.com/T8qZAX8.png',
+        preview: true
       },
       {
         spotId: 3,
-        url: 'fakeImgSpot3',
+        url: 'https://i.imgur.com/QVWNMRp.png',
         preview: true
       },
       {
         spotId: 4,
-        url: 'fakeImgSpot4',
-        preview: false
+        url: 'https://i.imgur.com/UTzFJJ0.jpg',
+        preview: true
       },
       {
         spotId: 5,
-        url: 'fakeImgSpot5',
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
         preview: true
       },
     ])

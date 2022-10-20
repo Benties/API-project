@@ -1,35 +1,30 @@
-* {
-    box-sizing: border-box;
-    margin: 0;
-    padding: 0;
-    background-color: aliceblue;
-}
-
-
-
 .navBar {
-
+    box-sizing: border-box;
+    background-color: #FFFFFF;
+    width: 100%;
     position: fixed;
     top: 0;
-    display: flex;
-    width: 100%;
-    height: 35px;
+    height: 80px;
     z-index: 5;
+    /* padding: 20px 2%; */
+    display: flex;
     align-items: center;
     justify-content: space-between;
-    padding: 20px 2%;
+    /* outline: rbg(255,0,0) dashed 10px; */
 
 }
 
-.navContent {
-    text-decoration: none;
-    padding-right: 10px;
-}
+    .navContent {
+        /* text-decoration: none solid rgb(72,72,72); */
+
+        /* padding-right: 10px; */
+
+    }
 
 #icon {
     position: relative;
     top:0;
-    right:90px;
-    scale: .2;
+    right: 50px;
+    scale: .5;
 
 }
