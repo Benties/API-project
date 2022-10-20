@@ -14,21 +14,33 @@ const validateSpot = [
           check('address')
             .exists({ checkFalsy: true })
             .withMessage('Street address is required'),
+          check('address')
+            .isLength({ max: 50 })
+            .withMessage('Address must be less than 50 characters'),
           check('city')
             .exists({ checkFalsy: true })
             .withMessage('City is required'),
+          check('city')
+            .isLength({ max: 50 })
+            .withMessage('City must be less than 50 characters'),
           check('state')
             .exists({ checkFalsy: true })
             .withMessage('State is required'),
+          check('state')
+            .isLength({ max: 50 })
+            .withMessage('State must be less than 50 characters'),
           check('country')
             .exists({ checkFalsy: true })
             .withMessage('Country is required'),
-          check('lat')
-            .isDecimal()
-            .withMessage('Latitude is not valid'),
-          check('lng')
-            .isDecimal()
-            .withMessage('Longitude is not valid'),
+          check('country')
+            .isLength({ max: 50 })
+            .withMessage('Country must be less than 50 characters'),
+        //   check('lat')
+        //     .isDecimal()
+        //     .withMessage('Latitude is not valid'),
+        //   check('lng')
+        //     .isDecimal()
+        //     .withMessage('Longitude is not valid'),
           check('name')
             .isLength({ max: 50 })
             .withMessage('Name must be less than 50 characters'),
@@ -39,6 +51,9 @@ const validateSpot = [
             .exists({ checkFalsy: true })
             .isDecimal()
             .withMessage('Price per day is required'),
+          check('price')
+            .isInt({min: 0})
+            .withMessage("Price can't be negative"),
     handleValidationErrors
 ]
 
@@ -46,6 +61,9 @@ const validateReview = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
+    check('name')
+      .isLength({ max: 250 })
+      .withMessage('Name must be less than 250 characters'),
     check('stars')
       .isInt({ min: 1, max: 5})
       .withMessage('Stars must be an integer from 1 to 5'),

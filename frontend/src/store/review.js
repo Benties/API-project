@@ -45,6 +45,7 @@ export const createReview = (spotId, payload) => async dispatch => {
     if (res.ok){
         const review = await res.json()
         dispatch(postReview(review))
+        return review
     }
 }
 
