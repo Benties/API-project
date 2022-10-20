@@ -5,6 +5,8 @@
     width: 80px;
     height: 40px;
     align-items: center;
+    background-color: white;
+    border: 1px solid #DDDDDD;
 }
 
 .profile-dropdown{
@@ -18,4 +20,8 @@
     border-radius: 20px;
     border: 1px solid #DDDDDD;
     /* height: 100px; */
+}
+
+.profileButt > .fas {
+    scale:1.2;
 }

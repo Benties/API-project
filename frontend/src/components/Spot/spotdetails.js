@@ -32,19 +32,24 @@ useEffect(() => {
     <div className="detailsContainer">
         <h2>{spot?.name}</h2>
         <div className="spotDescription">
+            <div>⭐</div>
             <h6>{spot?.avgStarRating}</h6>
-            <h6>{spot?.numReviews}</h6>
+            <div>•</div>
+            <h6 className="spotRevs">{spot?.numReviews} reviews</h6>
+            <div>•</div>
+            <div>🏅</div>
             <h6>SuperHost</h6>
-            <h6>{spot?.city},{spot?.state},{spot?.country}</h6>
+            <div>•</div>
+            <h6 className="spotLocate">{spot?.city},{spot?.state},{spot?.country}</h6>
         </div>
         <div className='spotDetailsImages'>
             {spot?.SpotImages?.map(img => (
-                <img className='eachImg' src={img?.url} width='100px' height='100px'/>
+                <img className='eachImg' src={img?.url}/>
             ))}
         </div>
         <div className='ownerInfo'>
             <h3>Entire Spot hosted by {spot?.Owner?.firstName}</h3>
-            <p>3 guests . 2 bedrooms . 14 beds . .5 baths</p>
+            <p>3 guests • 2 bedrooms • 14 beds • 2 baths</p>
         </div>
         <AllReviews spot={spot}/>
 
