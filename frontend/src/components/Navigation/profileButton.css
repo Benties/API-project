@@ -1,0 +1,21 @@
+.profileButt{
+    display: flex;
+    justify-content: space-around;
+    border-radius: 30px;
+    width: 80px;
+    height: 40px;
+    align-items: center;
+}
+
+.profile-dropdown{
+    display: flex;
+    flex-direction: column;
+    top: 60px;
+    right: 2.7%;
+    position: absolute;
+    padding: 200px 75px;
+    background-color: white;
+    border-radius: 20px;
+    border: 1px solid #DDDDDD;
+    /* height: 100px; */
+}

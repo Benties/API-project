@@ -16,7 +16,7 @@ const SingleSpot = () => {
 
 
 // TODO: use redux to get the current spot and set that to a const
-const spot = useSelector(state => state.spot.singleSpot)
+const spot = useSelector(state => state?.spot?.singleSpot)
 
 // TODO: dipatch thunk with a payload of the current spots Id
 useEffect(() => {
@@ -29,15 +29,15 @@ useEffect(() => {
 // TODO: set a ternary so that you can query for the current spot and give your page time to render
     let content
     spot? content =
-    <div>
-        <h2>{spot.name}</h2>
+    <div className="detailsContainer">
+        <h2>{spot?.name}</h2>
         <div className="spotDescription">
-            <h6>{spot.avgStarRating}</h6>
-            <h6>{spot.numReviews}</h6>
+            <h6>{spot?.avgStarRating}</h6>
+            <h6>{spot?.numReviews}</h6>
             <h6>SuperHost</h6>
-            <h6>{spot.city},{spot.state},{spot.country}</h6>
+            <h6>{spot?.city},{spot?.state},{spot?.country}</h6>
         </div>
-        <div className='spotImages'>
+        <div className='spotDetailsImages'>
             {spot?.SpotImages?.map(img => (
                 <img className='eachImg' src={img?.url} width='100px' height='100px'/>
             ))}
@@ -51,7 +51,7 @@ useEffect(() => {
     </div>
     : content = <div></div>
     return (
-        <div className="spotDetails">
+        <div className="spotMasterContainer">
             {content}
 
      {/* TODO: review Modal */}

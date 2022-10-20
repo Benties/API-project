@@ -1,30 +1,56 @@
 .navBar {
     box-sizing: border-box;
     background-color: #FFFFFF;
+
     width: 100%;
     position: fixed;
     top: 0;
     height: 80px;
     z-index: 5;
-    /* padding: 20px 2%; */
+
     display: flex;
     align-items: center;
     justify-content: space-between;
-    /* outline: rbg(255,0,0) dashed 10px; */
+
 
 }
 
-    .navContent {
-        /* text-decoration: none solid rgb(72,72,72); */
-
-        /* padding-right: 10px; */
-
-    }
+.navContent {
+    display: flex;
+    margin-right: 2.3%;
+}
 
 #icon {
-    position: relative;
+    /* box-sizing:content-box; */
     top:0;
-    right: 50px;
     scale: .5;
+    padding: 0;
+    margin-left: 0%;
+    position: relative;
+
+        /* margin-right: 37px; */
+
+    /* margin-left: ; */
+    /* margin-right: 10%; */
+}
+
+.buttHolder{
+    /* position: relative; */
+    background-color: #FFFFFF;
+    padding: 12px 12px 12px 12px;
+    border-radius: 40px;
+    margin-right: 20px;
+}
+
+.buttHolder:hover {
+    background-color: rgb(245, 245, 246);
+}
+
+.hostingButt {
+    font-weight: 600;
+    font-size: 14px;
+    line-height: 18px;
+    text-decoration: none solid rgb(34,34,34);
+    color: #222222;
 
 }

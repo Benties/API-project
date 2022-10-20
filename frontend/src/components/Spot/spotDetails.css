@@ -1,4 +1,17 @@
-.spotDetails{
-    position: relative;
-    margin-top: 60px;
+.spotMasterContainer {
+    display: flex;
+    flex-direction: column;
+    /* align-content: center; */
+    /* justify-content: center; */
+    /* align-items: center; */
+    /* justify-self: center; */
+    /* max-width: 1280px; */
+    /* width: 1103px; */
+    padding:0 80px 0 80px;
+    margin-top: 105px;
+}
+
+.detailsContainer, h2 {
+
+    /* width: 1103px */
 }

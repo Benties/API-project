@@ -31,8 +31,10 @@ function ProfileButton({ user }) {
   };
 
   return (
-    <div className="dropContainer">
-      <button onClick={openMenu}>
+    // <div className="dropContainer">
+    <>
+      <button className='profileButt' onClick={openMenu}>
+        <i className="fas fa-bars"/>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
@@ -45,7 +47,8 @@ function ProfileButton({ user }) {
           </li>
         </ul>
       )}
-    </div>
+    {/* </div> */}
+    </>
   );
 }
 
