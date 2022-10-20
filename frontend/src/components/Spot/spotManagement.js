@@ -35,16 +35,16 @@ const Manager = () => {
         dispatch(getCurrentOwnerSpot())
     },[dispatch])
 
-    let content = (<div>hhi</div>)
+    let content
     if(user?.id){
         spots.length ?
         content = (
             <div className="spotManager">
-                <h1>
+                <h1 className="managerBanner">
                    Hi {user?.firstName}, welcome to your listing management
                 </h1>
                 {spots?.map((spot) => (
-                    <div>
+                    <div className="eachSpotContainer">
                     <div>{spot.name}</div>
                     <img className='spotImage' src={spot?.previewImage} width='100px' height='100px'/>
                     <button onClick={() => editSpot(spot?.id)}>Edit Spot</button>
@@ -71,59 +71,11 @@ const Manager = () => {
 
     }
     return (
-        <div>
+        <div className="spotManagerMasterContainer">
             {content}
         </div>
 
     )
 }
-
-
-//     let content
-
-//     if(user?.email) {
-
-//         user?.id === userSpots[0]?.ownerId ?
-//         true === false ?
-
-//         content = (
-//         <div>
-//             <h1>
-//                 Hi {user?.firstName}, welcome to your listing management
-//             </h1>
-//             {userSpots?.map(spot => (
-//                 <h2 key={spot?.id}>
-//                     {spot?.name}
-//                 </h2>
-//             ))}
-//         </div> )
-//         :
-//         content = (
-//         <div>
-//             <h1>Start your hosting journey today</h1>
-//             <button onClick={() => {history.push('/spots/new')}}>Create a listing</button>
-//         </div>
-
-//         )
-
-//     } else {
-
-//         content = (
-//                 <div>
-//                     <h1>Start your hosting journey today</h1>
-//                     <LoginFormModal/>
-//                 </div>
-
-//         )
-//     }
-//     return (
-
-//         <div>
-//            {content}
-//         </div>
-
-//     )
-// }
-
 
 export default Manager

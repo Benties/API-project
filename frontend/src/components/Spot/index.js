@@ -38,7 +38,7 @@ const AllSpots = () => {
                             {/* <div> */}
                             {/* <img className="star" src='https://i.imgur.com/08pAFWv.png'/> */}
                             {/* </div> */}
-                            <div className='spotRating'>{spot?.avgRating}</div>
+                            <div className='spotRating'>⭐ {spot?.avgRating}</div>
                         </div>
                         <div className='distanceContainer'>
                             <div>100 miles away</div>
