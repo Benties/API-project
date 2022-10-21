@@ -1,6 +1,6 @@
 import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
-import { useHistory } from "react-router-dom"
+import { NavLink, useHistory } from "react-router-dom"
 import { getAllSpots, getCurrentOwnerSpot, loadCurrentOwners, deleteSpot } from "../../store/spot"
 import LoginFormModal from "../LoginFormModal"
 import './spotManagement.css'
@@ -55,16 +55,17 @@ const Manager = () => {
         )
         :
         content = (
-            <div>
-                <h1>Start your hosting journey today</h1>
-                <button onClick={() => {history.push('/spots/new')}}>Create a listing</button>
+            <div >
+                <h1  className="managerBanner">Start your hosting journey today</h1>
+                {/* <button onClick={() => {history.push('/spot/new')}}>Click here to start hosting today</button> */}
+                <NavLink to='/spot/new'>Click here to start hosting today</NavLink>
             </div>
 
         )
     } else {
         content = (
-            <div>
-                <h1>Start your hosting journey today</h1>
+            <div className="spotManager">
+                <h1 className="managerBanner" >Start your hosting journey today</h1>
                 <LoginFormModal/>
             </div>
         )

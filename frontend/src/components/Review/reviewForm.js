@@ -64,8 +64,11 @@ const CreateReview = ({spot, setShowModal}) => {
         <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
         </ul>
-            {spot.name}
+            <div className='currSpotName'>
+                {spot.name}
+            </div>
             <input
+                className='reviewBox'
                 type='text'
                 name='rev'
                 placeholder='Your Review'
@@ -73,12 +76,12 @@ const CreateReview = ({spot, setShowModal}) => {
                 onChange={e => setReview(e.target.value)}
                 />
 
-            <div>
-                <button className="star" onClick={(e) => starButton(e, 1)}>1</button>
-                <button className="star" onClick={(e) => starButton(e, 2)}>2</button>
-                <button className="star" onClick={(e) => starButton(e, 3)}>3</button>
-                <button className="star" onClick={(e) => starButton(e, 4)}>4</button>
-                <button className="star" onClick={(e) => starButton(e, 5)}>5</button>
+            <div className="holdMyStars">
+                <button className="star star1" onClick={(e) => starButton(e, 1)}>&#9734;</button>
+                <button className="star star2" onClick={(e) => starButton(e, 2)}>&#9734;</button>
+                <button className="star star3" onClick={(e) => starButton(e, 3)}>&#9734;</button>
+                <button className="star star4" onClick={(e) => starButton(e, 4)}>&#9734;</button>
+                <button className="star star5" onClick={(e) => starButton(e, 5)}>&#9734;</button>
             </div>
             <button
             type="submit"

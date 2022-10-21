@@ -1,0 +1,42 @@
+
+
+.holdMyStars{
+    display: flex;
+
+}
+
+.star {
+    background-color: white;
+    font-size: 100px;
+    font-weight: 600;
+    margin:0;
+    border: none;
+
+}
+
+.star:hover{
+    filter: saturate(200%);
+    color: rgb(255, 0, 13);
+}
+
+
+.star1{
+    left: 100px;
+}
+.star2{
+    left: 42px
+}
+.star3{
+    right:15px;
+}
+.star4{
+    right:72px;
+}
+.star5{
+    right:130px;
+}
+
+.reviewBox{
+    width: 100%;
+
+}

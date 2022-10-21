@@ -33,3 +33,23 @@
 .spotRevs, .spotLocate {
     text-decoration: underline;
 }
+
+.spotDetailsImages{
+    display: grid;
+    box-sizing: border-box;
+    /* grid-template-columns: repeat(autofit, minmax(400px, 3fr)); */
+    /* grid-template-rows: repeat(autoft, minmax(400px, 2fr)); */
+    width:100%;
+    height:500px
+}
+
+.eachImg{
+    /* position: inherit; */
+    width:500px;
+    height:500px;
+    object-fit: cover;
+    border-top-left-radius: 12px;
+    border-top-right-radius: 12px;
+    border-bottom-left-radius: 12px;
+    border-bottom-right-radius: 12px;
+}

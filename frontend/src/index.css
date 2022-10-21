@@ -22,7 +22,7 @@ html, body {
     margin: auto;
 }
 /* not(.fas):not(.fa-user-circle):not(.fa-bars) */
-button:not(.profileButt)  {
+button:not(.profileButt, .star)  {
     color: white;
     font: bold 84% 'trebuchet ms',helvetica,sans-serif;
     background-color:#d80665;
@@ -31,4 +31,8 @@ button:not(.profileButt)  {
     width: 100px;
     height: 20px;
     /* border-color: #696 #363 #363 #696; */
+  }
+
+  button:hover{
+    cursor: pointer;
   }
