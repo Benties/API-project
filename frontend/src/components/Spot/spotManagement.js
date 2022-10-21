@@ -39,18 +39,22 @@ const Manager = () => {
     if(user?.id){
         spots.length ?
         content = (
-            <div className="spotManager">
+            <div>
                 <h1 className="managerBanner">
                    Hi {user?.firstName}, welcome to your listing management
                 </h1>
+                <div className="spotManager">
                 {spots?.map((spot) => (
                     <div className="eachSpotContainer">
-                    <div>{spot.name}</div>
-                    <img className='spotImage' src={spot?.previewImage} width='100px' height='100px'/>
-                    <button onClick={() => editSpot(spot?.id)}>Edit Spot</button>
-                    <button onClick={() => removeSpot(spot?.id)}>Remove Spot</button>
+                    <div className="spotManagerName">{spot.name}</div>
+                    <img className='spotManagerImage' src={spot?.previewImage} width='100px' height='100px'/>
+                    <div className="spotManageButtons">
+                        <button className="manageButtons" onClick={() => editSpot(spot?.id)}>Edit Spot</button>
+                        <button className="manageButtons" onClick={() => removeSpot(spot?.id)}>Remove Spot</button>
+                    </div>
                     </div>
                 ))}
+                </div>
             </div>
         )
         :

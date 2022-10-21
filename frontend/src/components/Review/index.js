@@ -2,7 +2,7 @@ import { useEffect } from "react"
 import { useDispatch, useSelector } from "react-redux"
 import { deleteReview, getReviews } from "../../store/review"
 import { getOneSpot } from "../../store/spot"
-
+import './reviews.css'
 
 
 const AllReviews = ({spot}) => {
@@ -29,8 +29,8 @@ const deleteButton = (userid, revId) => userid === userId?.id ? <button onClick=
 
 
     return (
-        <div> All Reviews{reviews.map(ele =>
-            (<ul>
+        <div className='spotReviewsContainer' > All Reviews{reviews.map(ele =>
+            (<ul className="eachReview">
                 <div key={ele?.id}>{ele?.User?.firstName}: {ele?.review}</div>
                 {deleteButton(ele?.userId, ele?.id)}
             </ul>

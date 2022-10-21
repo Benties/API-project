@@ -13,7 +13,9 @@ const SingleSpot = () => {
    const { spotId } = useParams()
    const history = useHistory()
 
+const currSession = useSelector(state => (state?.session?.user?.id))
 
+const currReview = useSelector(state => (state?.review))
 
 // TODO: use redux to get the current spot and set that to a const
 const spot = useSelector(state => state?.spot?.singleSpot)
@@ -55,12 +57,29 @@ useEffect(() => {
 
     </div>
     : content = <div></div>
+
+    let reviewModal = <CreateFormModal spot={spot}/>
+
+    Object?.values(currReview)?.forEach(ele => {
+        if(ele?.userId === currSession) {
+            reviewModal = <div></div>
+        }
+    })
+    if(currSession === spot?.ownerId) {
+        reviewModal = <div></div>
+    }
+    if(!currSession){
+        reviewModal = <div></div>
+    }
+
+
     return (
         <div className="spotMasterContainer">
             {content}
 
      {/* TODO: review Modal */}
-            <CreateFormModal spot={spot}/>
+            {/* <CreateFormModal spot={spot}/> */}
+            {reviewModal}
         </div>
     )
 }

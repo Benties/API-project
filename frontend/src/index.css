@@ -36,3 +36,14 @@ button:not(.profileButt, .star)  {
   button:hover{
     cursor: pointer;
   }
+
+
+.errors {
+    text-decoration: none;
+    list-style: none;
+    color:rgb(192, 29, 29);
+}
+
+.errors li {
+    height: 30px;
+}

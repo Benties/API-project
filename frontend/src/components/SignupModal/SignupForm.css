@@ -1,3 +1,16 @@
 .signupForm {
-    margin-top: 100px;
+    display: flex;
+    flex-direction: column;
+    /* justify-content: space-evenly; */
+    height: 400px;
+    width: 400px;
+    line-height: 50px;
+    justify-content: center;
+    align-items: center;
+    height: fit-content;
+}
+
+.signupForm input {
+    width: 350px;
+    border-radius: 2px;
 }

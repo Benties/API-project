@@ -1,12 +1,27 @@
 .spotManagerMasterContainer{
+    display: flex;
 
 }
 
-.spotManger{
+.spotManager{
+    display: grid;
+    box-sizing: border-box;
+    position: absolute;
+    justify-content: center;
+    width: 100%;
+    height: 100%;
+    grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)) ;
+    grid-gap: 40px 26px;
+    margin-top: 380px;
+}
 
+.spotManagerName{
+    font-size: 40px;
+    font-weight: bold;
 }
 
 .managerBanner{
+    position: absolute;
     width: 100%;
     height: 300px;
     display: flex;
@@ -16,7 +31,28 @@
 }
 
 .eachSpotContainer {
-    width: 300px;
-    height: 300px;
+    position:initial;
+    display: flex;
+    flex-direction: column;
+    width: 400px;
+    height: 500px;
+    /* font-size: 40px; */
+    box-sizing: border-box;
 
+}
+
+.spotManagerImage {
+    width: 100%;
+    height: 400px;
+}
+
+
+.spotManageButtons {
+    display: flex;
+    justify-content: space-around;
+}
+
+.manageButtons {
+    scale: 2;
+    font-size: 40px;
 }

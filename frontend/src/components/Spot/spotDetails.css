@@ -1,14 +1,9 @@
 .spotMasterContainer {
     display: flex;
     flex-direction: column;
-    /* align-content: center; */
-    /* justify-content: center; */
-    /* align-items: center; */
-    /* justify-self: center; */
-    /* max-width: 1280px; */
-    /* width: 1103px; */
     padding:0 80px 0 80px;
     margin-top: 105px;
+
 }
 
 .detailsContainer, h2 {
@@ -20,6 +15,7 @@
     height: auto;
     width: auto;
     box-sizing: border-box;
+
 }
 
 .spotDescription > * {
@@ -28,6 +24,7 @@
     line-height: 20px;
     font-weight: 600;
     margin-right: 5px;
+
 }
 
 .spotRevs, .spotLocate {
@@ -52,4 +49,10 @@
     border-top-right-radius: 12px;
     border-bottom-left-radius: 12px;
     border-bottom-right-radius: 12px;
+}
+
+
+.leaveRevButt {
+    height: 100px;
+    width: 1000px;
 }

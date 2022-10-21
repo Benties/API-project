@@ -2,7 +2,7 @@ import {useState, useEffect } from 'react'
 import { useDispatch, useSelector } from 'react-redux'
 import { useHistory, useParams, useLocation } from 'react-router-dom'
 import { loadOne, editSpot, getOneSpot, deleteSpot } from '../../store/spot'
-
+import './editSpot.css'
 
 const EditSpot = () => {
     const { spotId } = useParams()
@@ -12,16 +12,15 @@ const EditSpot = () => {
         dispatch(getOneSpot(spotId))
     },[dispatch, spotId])
 
-    console.log('this is spot', spot)
+
     const [address, setAddress] = useState(spot.address)
     const [city, setCity] = useState(spot.city)
     const [state, setState] = useState(spot.state)
     const [country, setCountry] = useState(spot.country)
-    const [lat, setLat] = useState(spot.lat)
-    const [lng, setLng] = useState(spot.lng)
     const [name, setName] = useState(spot.name)
     const [description, setDescription] = useState(spot.description)
     const [price, setPrice] = useState(spot.price)
+    const [errors, setErrors] = useState([])
 
     const history = useHistory()
 
@@ -30,8 +29,6 @@ const EditSpot = () => {
         setCity(spot.city)
         setState(spot.state)
         setCountry(spot.country)
-        setLat(spot.lat)
-        setLng(spot.lng)
         setName(spot.name)
         setDescription(spot.description)
         setPrice(spot.price)
@@ -46,15 +43,20 @@ const EditSpot = () => {
             city,
             state,
             country,
-            lat,
-            lng,
             name,
             description,
             price
         }
+        setErrors([])
 
-
-        let editedSpot = await dispatch(editSpot(formData, spotId))
+        let editedSpot = await dispatch(editSpot(formData, spotId)).catch(
+            async (res) => {
+              const data = await res.json();
+              if (data && data.errors) {
+                  setErrors(data.errors);
+              }
+            }
+          );
         if(editedSpot){
             history.push(`/spots/${spotId}`)
         }
@@ -66,10 +68,15 @@ const EditSpot = () => {
     }
 
     return (
-        <>
-        <form onSubmit={onSubmit}>
-            <label>
-                Create a Spot
+        <div className='editSpotContainer'>
+        <form  className='editSpotForm' onSubmit={onSubmit}>
+            <ul className="errors" >
+              {errors.map((error, idx) => (
+                <li key={idx}> <i className='fa fa-exclamation-circle' /> {error}</li>
+                ))}
+            </ul>
+            <label className='formLabel'>
+                Edit your spot
                 <input
                     type='text'
                     name='name'
@@ -105,20 +112,6 @@ const EditSpot = () => {
                     onChange={e => setCountry(e.target.value)}
                     />
                 <input
-                    type='number'
-                    name='lat'
-                    placeholder='latitude'
-                    value={lat}
-                    onChange={e => setLat(e.target.value)}
-                    />
-                <input
-                    type='number'
-                    name='lng'
-                    placeholder='longitude'
-                    value={lng}
-                    onChange={e => setLng(e.target.value)}
-                    />
-                <input
                     type='text'
                     name='description'
                     placeholder='description'
@@ -133,10 +126,12 @@ const EditSpot = () => {
                     onChange={e => setPrice(e.target.value)}
                     />
             </label>
-            <button>Post</button>
+            <button className='editFormButt'>Post</button>
         </form>
-        <button onClick={removeSpot}>Remove this Spot</button>
-        </>
+        <div className='editDeleteContainer'>
+            <button  className='editDeleteFormButt' onClick={removeSpot}>Remove this Spot</button>
+        </div>
+        </div>
     )
 }
 
