@@ -60,6 +60,7 @@ const CreateReview = ({spot, setShowModal}) => {
     return (
         <form
             onSubmit={onSubmit}
+            className='reviewForm'
             >
         <ul>
             {errors.map((error, idx) => <li key={idx}>{error}</li>)}
