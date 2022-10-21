@@ -18,7 +18,10 @@ function LoginForm() {
       }
     );
   };
-
+  const demoLogIn = () => {
+    setCredential('FakeUser1')
+    setPassword('password')
+  }
   return (
     <form onSubmit={handleSubmit}
     className='loginForm'>
@@ -46,6 +49,7 @@ function LoginForm() {
         />
       </label>
       <button type="submit">Log In</button>
+      <button type="submit" onClick={demoLogIn}>Demo Log In</button>
     </form>
   );
 }
