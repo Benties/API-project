@@ -6,9 +6,10 @@ import LoginFormModal from '../LoginFormModal';
 import { useHistory } from 'react-router-dom';
 import './Navigation.css';
 import SignupFormModal from '../SignupModal';
+import NoUserDrop from './loggedOffProfile';
 
 function Navigation({ isLoaded }){
-  const sessionUser = useSelector(state => state.session.user);
+  const sessionUser = useSelector(state => state?.session?.user);
   const history = useHistory()
   let sessionLinks;
   if (sessionUser) {
@@ -23,11 +24,10 @@ function Navigation({ isLoaded }){
   } else {
     sessionLinks = (
       <div className='navContent'>
-        <LoginFormModal />
         <div className='buttHolder'>
           <NavLink className='hostingButt' to='/hosting'>Become a Host</NavLink>
         </div>
-        <SignupFormModal/>
+        <NoUserDrop/>
       </div >
     );
   }

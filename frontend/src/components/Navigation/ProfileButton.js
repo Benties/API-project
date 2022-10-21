@@ -1,9 +1,11 @@
 import React, { useState, useEffect } from "react";
-import { useDispatch } from 'react-redux';
+import { useDispatch, useSelector } from 'react-redux';
 import { useHistory } from "react-router-dom";
 import * as sessionActions from '../../store/session';
+import LoginFormModal from '../LoginFormModal';
+import SignupFormModal from '../SignupModal';
 import './profileButton.css'
-function ProfileButton({ user }) {
+function ProfileButton({user}) {
   const dispatch = useDispatch();
   const history = useHistory()
   const [showMenu, setShowMenu] = useState(false);
@@ -31,7 +33,6 @@ function ProfileButton({ user }) {
   };
 
   return (
-    // <div className="dropContainer">
     <>
       <button className='profileButt' onClick={openMenu}>
         <i className="fas fa-bars"/>
@@ -47,7 +48,6 @@ function ProfileButton({ user }) {
           </li>
         </ul>
       )}
-    {/* </div> */}
     </>
   );
 }

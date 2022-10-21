@@ -5,12 +5,14 @@ import SignupFormPage from './signupForm';
 function SignupFormModal() {
   const [showModal, setShowModal] = useState(false);
 
+
+
   return (
     <>
-      <button onClick={() => setShowModal(true)}>SignUp</button>
+      <button onClick={(e) => (setShowModal(true), e.stopPropagation())}>SignUp</button>
       {showModal && (
         <Modal onClose={() => setShowModal(false)}>
-          <SignupFormPage />
+          <SignupFormPage/>
         </Modal>
       )}
     </>

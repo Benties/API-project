@@ -23,7 +23,9 @@ function LoginForm() {
     setPassword('password')
   }
   return (
-    <form onSubmit={handleSubmit}
+    <form
+    onSubmit={handleSubmit}
+    onClick={e => e.stopPropagation()}
     className='loginForm'>
       <ul className="errors" >
         {errors.map((error, idx) => (

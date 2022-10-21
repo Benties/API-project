@@ -1,7 +1,6 @@
 .signupForm {
     display: flex;
     flex-direction: column;
-    /* justify-content: space-evenly; */
     height: 400px;
     width: 400px;
     line-height: 50px;

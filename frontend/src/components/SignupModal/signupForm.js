@@ -31,7 +31,7 @@ function SignupFormPage() {
   };
 
   return (
-    <form className="signupForm" onSubmit={handleSubmit}>
+    <form className="signupForm" onSubmit={handleSubmit} onClick={(e) => (e.stopPropagation())}>
       <ul className="errors">
         {errors.map((error, idx) => <li key={idx}> <i className='fa fa-exclamation-circle' /> {error}</li>)}
       </ul>
