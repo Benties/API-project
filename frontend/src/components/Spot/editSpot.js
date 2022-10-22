@@ -70,7 +70,7 @@ const EditSpot = () => {
     return (
         <div className='editSpotContainer'>
         <form  className='editSpotForm' onSubmit={onSubmit}>
-            <ul className="errors" >
+            <ul className="errors" id='editPageErrors'>
               {errors.map((error, idx) => (
                 <li key={idx}> <i className='fa fa-exclamation-circle' /> {error}</li>
                 ))}
@@ -125,12 +125,10 @@ const EditSpot = () => {
                     value={price}
                     onChange={e => setPrice(e.target.value)}
                     />
-            </label>
-            <button className='editFormButt'>Post</button>
-        </form>
-        <div className='editDeleteContainer'>
-            <button  className='editDeleteFormButt' onClick={removeSpot}>Remove this Spot</button>
-        </div>
+                </label>
+                <button id='editFormButt'>Post</button>
+            </form>
+            {/* <button  id='editDeleteFormButt' onClick={removeSpot}>Remove this Spot</button> */}
         </div>
     )
 }

@@ -30,14 +30,8 @@ const AllSpots = () => {
                  <div key={spot?.id} className='spotCard' >
                      <NavLink className='spotLink' to={`/spots/${spot?.id}`}>
                          <img className='spotImage' src={spot?.previewImage} width='100px' height='100px'/>
-                         {/* <div className='spotName'>
-                         {spot.name}
-                         </div> */}
                          <div className="spotLocation">
                             {spot?.city}   {spot?.state}
-                            {/* <div> */}
-                            {/* <img className="star" src='https://i.imgur.com/08pAFWv.png'/> */}
-                            {/* </div> */}
                             <div className='spotRating'>⭐ {spot?.avgRating}</div>
                         </div>
                         <div className='distanceContainer'>
