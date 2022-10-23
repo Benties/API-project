@@ -22,7 +22,9 @@ const userId = useSelector(state => state?.session?.user)
 
 const deleteRev = (id) => {
     dispatch(deleteReview(id))
-    dispatch(getOneSpot(spot?.id))
+    setTimeout(() => {
+        dispatch(getOneSpot(spot?.id))
+    },200)
 }
 
 const deleteButton = (userid, revId) => userid === userId?.id ? <button id="deleteButtOnRev" onClick={() => deleteRev(revId)}>Delete</button> : null
