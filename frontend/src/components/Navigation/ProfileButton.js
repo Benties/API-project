@@ -33,22 +33,28 @@ function ProfileButton({user}) {
   };
 
   return (
-    <>
+    <div className="loggedProfileDrop">
       <button className='profileButt' onClick={openMenu}>
         <i className="fas fa-bars"/>
         <i className="fas fa-user-circle" />
       </button>
       {showMenu && (
         <ul className="profile-dropdown">
-          <li>{user.username}</li>
-          <li>{user.email}</li>
-          <li><button onClick={()=> (history.push('/hosting'))}>Manage Listings</button></li>
-          <li>
-            <button onClick={logout}>Log Out</button>
-          </li>
+          <div className="profDropSection1">
+            <li>{user.username}</li>
+            <li>{user.email}</li>
+          </div>
+          <div className="profDropSection2">
+            <li><button onClick={()=> (history.push('/hosting'))}>Manage Listings</button></li>
+          </div>
+          <div className="profDropSection3">
+            <li>
+              <button onClick={logout}>Log Out</button>
+            </li>
+          </div>
         </ul>
       )}
-    </>
+    </div>
   );
 }
 

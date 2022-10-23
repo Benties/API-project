@@ -23,13 +23,16 @@ const Manager = () => {
     const removeSpot = (spotId) => {
         const deleted = dispatch(deleteSpot(spotId))
         if(deleted){
-            history.push('/Loading')
+            // history.push('/Loading')
             setTimeout(() => {
                 history.push('/hosting')
-            },500)
+            },200)
         }
     }
 
+    const logInModal = () => {
+        history.push(<LoginFormModal/>)
+    }
 
     useEffect(() => {
         dispatch(getCurrentOwnerSpot())
@@ -68,9 +71,11 @@ const Manager = () => {
         )
     } else {
         content = (
-            <div className="spotManager">
-                <h1 className="managerBanner" >Start your hosting journey today</h1>
-                <LoginFormModal/>
+            <div className="spotManagerOff">
+                <h1 className="managerBannerOff" >Start your hosting journey today </h1>
+                {/* <div className="modalContainer"> */}
+                    <LoginFormModal />
+                {/* </div> */}
             </div>
         )
 

@@ -5,6 +5,7 @@
     align-items: center;
     margin: 0 10%;
     margin-top: 82px;
+    height: 450px;
 }
 
 .gridContainer {
@@ -13,8 +14,9 @@
     position: absolute;
     justify-content: center;
     width: 95%;
-    height: 100%;
+    height: fit-content;
     grid-template-columns: repeat(auto-fit, minmax(360px, 1fr)) ;
+    /* grid-template-rows: repeat(auto-fit, minmax(450px, 1fr)); */
     grid-gap: 40px 26px;
 }
 

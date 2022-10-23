@@ -25,14 +25,17 @@ const deleteRev = (id) => {
     dispatch(getOneSpot(spot?.id))
 }
 
-const deleteButton = (userid, revId) => userid === userId?.id ? <button onClick={() => deleteRev(revId)}>Delete Review</button> : null
+const deleteButton = (userid, revId) => userid === userId?.id ? <button id="deleteButtOnRev" onClick={() => deleteRev(revId)}>Delete</button> : null
 
 
     return (
         <div className='spotReviewsContainer' > All Reviews{reviews.map(ele =>
             (<ul className="eachReview">
-                <div key={ele?.id}>{ele?.User?.firstName}: {ele?.review}</div>
+                <div key={ele?.id}>{ele?.User?.firstName}: {ele?.review} ⭐{ele?.stars} </div>
+                <div className="revDeleteButt">
+
                 {deleteButton(ele?.userId, ele?.id)}
+                </div>
             </ul>
 
             ))}

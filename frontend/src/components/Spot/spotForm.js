@@ -85,14 +85,13 @@ const CreateSpot = () => {
         }
     }
     return (
-            <form onSubmit={onSubmit} className='spotForm'>
-                <button onClick={testCreate}>Testing</button>
-                <ul>
+            <form onSubmit={onSubmit} className='createSpotForm'>
+                <ul className='errors'>
                   {errors.map((error, idx) => (
-                    <li key={idx}>{error}</li>
+                    <li key={idx}> <i className='fa fa-exclamation-circle' /> {error}</li>
                     ))}
                 </ul>
-                <label>
+                <label className='createInputContainer'>
                     Create a Spot
                     <input
                         type='text'
@@ -129,20 +128,6 @@ const CreateSpot = () => {
                         value={country}
                         onChange={e => setCountry(e.target.value)}
                         />
-                    {/* <input
-                        type='number'
-                        name='lat'
-                        placeholder='latitude'
-                        value={lat}
-                        onChange={e => setLat(e.target.value)}
-                        />
-                    <input
-                        type='number'
-                        name='lng'
-                        placeholder='longitutde'
-                        value={lng}
-                        onChange={e => setLng(e.target.value)}
-                        /> */}
                     <input
                         type='text'
                         name='description'
@@ -165,7 +150,10 @@ const CreateSpot = () => {
                         onChange={e => setImgUrl(e.target.value)}
                         />
                 </label>
-                <button>Post</button>
+                <div className='createbuttContainer'>
+                    <button id='postNewSpot'>Post</button>
+                    <button id='testCreateSpot' onClick={testCreate}>Testing</button>
+                </div>
             </form>
     )
 }

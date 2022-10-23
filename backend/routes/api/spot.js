@@ -64,7 +64,7 @@ const validateReview = [
     check('review')
       .exists({ checkFalsy: true })
       .withMessage('Review text is required'),
-    check('name')
+    check('review')
       .isLength({ max: 250 })
       .withMessage('Name must be less than 250 characters'),
     check('stars')

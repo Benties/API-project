@@ -1,11 +1,32 @@
 .reviewForm {
-   /* border-radius: 1000px; */
+   display: flex;
+   flex-direction: column;
+   justify-content: center;
 
+}
+
+.reviewBox{
+    width: 98.2%;
+    height: 100px;
 }
 
 .holdMyStars{
     display: flex;
+    /* justify-content: space-evenly; */
+}
 
+.ratingContainer{
+    display: flex;
+    align-self: center;
+    font-size: 30px;
+    margin-bottom: 20px;
+    /* justify-content: flex-start; */
+}
+.currSpotName {
+    display: flex;
+    justify-content: center;
+    font-size: large;
+    font-weight: bold;
 }
 
 .star {
@@ -14,7 +35,8 @@
     font-weight: 600;
     margin:0;
     border: none;
-
+    /* background-color: aquamarine; */
+    color: rgb(82, 81, 81);
 }
 
 .star:hover{
@@ -39,12 +61,18 @@
     right:130px;
 }
 
-.reviewBox{
-    width: 100%;
-
-}
 
 #leaveRevButt {
     height: 50px;
     width: 550px;
+}
+
+.revSubmitContainer {
+    display: flex;
+    justify-content: center;
+}
+
+#revSubmit {
+    height: 40px;
+    width: 150px;
 }
