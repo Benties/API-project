@@ -147,7 +147,7 @@ const spotReducer = (state = initialState, action) => {
             newSpot.singleSpot = action.spot
             return newSpot
         case LOAD_CURRENT_OWNERS_SPOT:
-            const newesterestSpot = {...state}
+            const newesterestSpot = {...state, ownersSpot: {}}
             action.spots.Spots.forEach(spot => {
                 newesterestSpot.ownersSpot[spot.id] = spot
             })
