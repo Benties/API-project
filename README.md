@@ -1,5 +1,5 @@
 # !BnB
-
+![splash](https://i.imgur.com/4r8TJra.png)
 ## Airbnb Clone
 !BnB is full stack application inspired by Airbnb. This application mimics all the features you can find on Airbnb. Visit this [link](https://ben-bnb-api.herokuapp.com/) to explore !BnB and book a spot for a vacation you'll never go to.
 ## [ApiDocs](https://github.com/Benties/API-project/tree/main/backend#readme)
