@@ -69,19 +69,21 @@ const CreateSpot = () => {
             preview: true
         }
 
-
-        let createdSpot = await dispatch(postSpot(formData)).catch(
-            async (res) => {
-              const data = await res.json();
-              if (data && data.errors) {
-                  setErrors(data.errors);
-              }
+        if(imgUrl) {
+            let createdSpot = await dispatch(postSpot(formData)).catch(
+                async (res) => {
+                  const data = await res.json();
+                  if (data && data.errors) {
+                      setErrors(data.errors);
+                  }
+                }
+              );
+            if(createdSpot){
+                dispatch(postImg(createdSpot.id, imgPayload))
+                history.push(`/`)
             }
-          );
-        if(createdSpot){
-            dispatch(postImg(createdSpot.id, imgPayload))
-
-            history.push(`/`)
+        } else {
+            setErrors(['Image Url is required'])
         }
     }
     return (

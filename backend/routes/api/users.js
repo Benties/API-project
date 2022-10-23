@@ -13,18 +13,36 @@ const validateSignup = [
       .exists({ checkFalsy: true })
       .isEmail()
       .withMessage('Please provide a valid email.'),
+    check('email')
+      .isLength({ max: 100 })
+      .withMessage('Email must be less than 100 characters'),
     check('username')
       .exists({ checkFalsy: true })
       .isLength({ min: 4 })
       .withMessage('Please provide a username with at least 4 characters.'),
+    check('username')
+      .isLength({ max: 100 })
+      .withMessage('Username must be less than 100 characters'),
     check('username')
       .not()
       .isEmail()
       .withMessage('Username cannot be an email.'),
     check('password')
       .exists({ checkFalsy: true })
-      .isLength({ min: 6 })
-      .withMessage('Password must be 6 characters or more.'),
+      .isLength({ min: 6, max: 150 })
+      .withMessage('Password must be 6 and less than 150 characters.'),
+    check('firstName')
+      .exists({ checkFalsy: true })
+      .withMessage('First name field is required'),
+    check('firstName')
+      .isLength({ max: 100 })
+      .withMessage('First name must be less than 100 characters'),
+    check('lastName')
+      .exists({ checkFalsy: true })
+      .withMessage('Last name field is required'),
+    check('lastName')
+      .isLength({ max: 100 })
+      .withMessage('Last name must be less than 100 characters'),
     handleValidationErrors
   ];
 

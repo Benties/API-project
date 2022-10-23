@@ -50,6 +50,9 @@ const validateSpot = [
           check('description')
             .exists({ checkFalsy: true })
             .withMessage('Description is required'),
+          check('description')
+            .isLength({ max: 250 })
+            .withMessage('Description must be less than 250 characters'),
           check('price')
             .exists({ checkFalsy: true })
             .isDecimal()
@@ -70,6 +73,14 @@ const validateReview = [
     check('stars')
       .isInt({ min: 1, max: 5})
       .withMessage('Stars must be an integer from 1 to 5'),
+
+    handleValidationErrors
+]
+
+const validateImg = [
+    check('url')
+        .exists({ checkFalsy: true })
+        .withMessage('Image url is required'),
 
     handleValidationErrors
 ]
@@ -254,6 +265,7 @@ router.post(
 
 router.post(
     '/:spotId/images',
+    validateImg,
     requireAuth,
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)

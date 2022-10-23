@@ -29,7 +29,7 @@ const deleteButton = (userid, revId) => userid === userId?.id ? <button id="dele
 
 
     return (
-        <div className='spotReviewsContainer' > All Reviews{reviews.map(ele =>
+        <div className='spotReviewsContainer' > ⭐ {spot?.avgStarRating} • {spot?.numReviews} reviews{reviews.map(ele =>
             (<ul className="eachReview">
                 <div key={ele?.id}>{ele?.User?.firstName}: {ele?.review} ⭐{ele?.stars} </div>
                 <div className="revDeleteButt">
