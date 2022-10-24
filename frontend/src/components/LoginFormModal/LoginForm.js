@@ -20,6 +20,7 @@ function LoginForm({setLogin}) {
       }
     );
     if(loggedUser.id){
+      setLogin(false)
       history.push('/')
     }
   };
@@ -29,6 +30,7 @@ function LoginForm({setLogin}) {
     setPassword('password')
     setTimeout(() => {
       setLogin(false)
+      history.push('/')
     },100)
   }
   return (
