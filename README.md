@@ -55,3 +55,5 @@ A map of the Redux Store for the features implemented
 - If you clicked on the 'Edit Spot' button you'll be redirected to the edit spot form where you can edit that spot.
 - A successful edit will redirect you to the spot's details page
 ![EditSpot](https://i.imgur.com/ir4hxdg.png)
+## RoadMap
+- Next on the agenda is bookings for spots!
