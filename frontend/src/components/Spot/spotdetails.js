@@ -52,6 +52,7 @@ useEffect(() => {
         <div className='ownerInfo'>
             <h3>Entire Spot hosted by {spot?.Owner?.firstName}</h3>
             <p>3 guests • 2 bedrooms • 14 beds • 2 baths</p>
+            <p>$ {spot.price} /night</p>
         </div>
         <AllReviews spot={spot}/>
 
