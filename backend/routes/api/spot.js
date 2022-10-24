@@ -335,7 +335,7 @@ router.get(
             })
                 Number(avg[0].average) !== 0 ? spot.avgRating = (Number(avg[0].average)) : spot.avgRating = "New"
                 for(const pics of pic){
-                    console.log(pics)
+                    // console.log(pics)
                     pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
                 }
             }
@@ -433,7 +433,7 @@ router.get(
     '/',
     async (req, res, next) => {
         let { page, size } = req.query
-        console.log(page)
+        // console.log(page)
         if(page && page < 1){
             res.statusCode = 400
             res.json({
@@ -485,7 +485,7 @@ router.get(
         })
         Number(avg[0].average) !== 0 ? spot.avgRating = parseFloat(avg[0].average).toFixed(1) : spot.avgRating = "New"
             for(const pics of pic){
-                console.log(pics)
+                // console.log(pics)
                 pics.preview ? spot.previewImage = pics.url : spot.previewImage = null
             }
         }
