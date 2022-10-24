@@ -3,7 +3,7 @@ import LoginFormModal from "../LoginFormModal"
 import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
-
+// import '../Spot/spotManagement.css'
 const NoUserDrop = ({setShowSignup, setLogin}) => {
     const [showMenu, setShowMenu] = useState(false);
 

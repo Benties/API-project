@@ -40,12 +40,13 @@ const Manager = () => {
 
     let content
     if(user?.id){
-        spots.length ?
+        spots[0]?.ownerId === user?.id ?
         content = (
             <div>
                 <h1 className="managerBanner">
                    Hi {user?.firstName}, welcome to your listing management
                 </h1>
+                <div className="saviorDiv">
                 <div className="spotManager">
                 {spots?.map((spot) => (
                     <div className="eachSpotContainer">
@@ -58,23 +59,25 @@ const Manager = () => {
                     </div>
                 ))}
                 </div>
+
+                </div>
             </div>
         )
         :
         content = (
             <div >
-                <h1  className="managerBanner">Start your hosting journey today</h1>
+                <h1  className="managerBanner">Click Switch to hosting above to begin your hosting journey today</h1>
                 {/* <button onClick={() => {history.push('/spot/new')}}>Click here to start hosting today</button> */}
-                <NavLink to='/spot/new'>Click here to start hosting today</NavLink>
+                {/* <NavLink to='/spot/new'>Click here to start hosting today</NavLink> */}
             </div>
 
         )
     } else {
         content = (
             <div className="spotManagerOff">
-                <h1 className="managerBannerOff" >Start your hosting journey today </h1>
+                <h1 className="managerBannerOff" >Start your hosting journey today by logging in or signing up </h1>
                 {/* <div className="modalContainer"> */}
-                    <LoginFormModal />
+                    {/* <LoginFormModal /> */}
                 {/* </div> */}
             </div>
         )

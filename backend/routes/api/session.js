@@ -13,9 +13,17 @@ const validateLogin = [
     .exists({ checkFalsy: true })
     .notEmpty()
     .withMessage('Please provide a valid email or username.'),
+  check('credential')
+    .isLength({ max: 100 })
+    .withMessage('Credentials must be less than 100 characters'),
   check('password')
     .exists({ checkFalsy: true })
     .withMessage('Please provide a password.'),
+  check('password')
+  .exists({ checkFalsy: true })
+  .isLength({ max: 150 })
+  .withMessage('Password must less than 150 characters.'),
+
   handleValidationErrors
 ];
 

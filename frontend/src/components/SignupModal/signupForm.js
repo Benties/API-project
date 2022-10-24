@@ -4,7 +4,7 @@ import { Redirect, useHistory } from "react-router-dom";
 import * as sessionActions from "../../store/session";
 import './SignupForm.css';
 
-function SignupFormPage() {
+function SignupFormPage({setShowSignup}) {
   const dispatch = useDispatch();
   const sessionUser = useSelector((state) => state.session.user);
   const [email, setEmail] = useState("");
@@ -28,10 +28,12 @@ function SignupFormPage() {
           if (data && data.errors) setErrors(data.errors);
         });
         if(newUser?.id){
+          setShowSignup(false)
           history.push('/')
         }
+    } else {
+      return setErrors(['Confirmed Password must match Password']);
     }
-    return setErrors(['Confirmed Password must match Password']);
   };
 
   return (

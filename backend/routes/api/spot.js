@@ -69,7 +69,7 @@ const validateReview = [
       .withMessage('Review text is required'),
     check('review')
       .isLength({ max: 250 })
-      .withMessage('Name must be less than 250 characters'),
+      .withMessage('Review must be less than 250 characters'),
     check('stars')
       .isInt({ min: 1, max: 5})
       .withMessage('Stars must be an integer from 1 to 5'),

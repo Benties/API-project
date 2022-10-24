@@ -1,7 +1,7 @@
 import React, { useState } from 'react';
 import { Modal } from '../../context/Modal';
 import LoginForm from './LoginForm';
-import '../Spot/spotManagement.css'
+// import '../Spot/spotManagement.css'
 function LoginFormModal({setLogin, login}) {
   // const [showModal, setShowModal] = useState(false);
 

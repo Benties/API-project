@@ -12,7 +12,7 @@ function SignupFormModal({setShowSignup, signup}) {
       {/* <button onClick={(e) => (setShowModal(true), e.stopPropagation())}>SignUp</button> */}
       {signup && (
         <Modal onClose={() => setShowSignup(false)}>
-          <SignupFormPage/>
+          <SignupFormPage setShowSignup={setShowSignup}/>
         </Modal>
       )}
     </>
