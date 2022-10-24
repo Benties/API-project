@@ -59,7 +59,7 @@ const validateSpot = [
             .withMessage('Price per day is required'),
           check('price')
             .isInt({min: 0})
-            .withMessage("Price can't be negative"),
+            .withMessage("Price must be above 0 and a whole number"),
     handleValidationErrors
 ]
 
