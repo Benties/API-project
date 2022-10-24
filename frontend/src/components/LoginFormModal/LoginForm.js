@@ -3,7 +3,7 @@ import * as sessionActions from "../../store/session";
 import { useDispatch } from "react-redux";
 import './loginForm.css'
 import { useHistory } from "react-router-dom";
-function LoginForm() {
+function LoginForm({setLogin}) {
   const dispatch = useDispatch();
   const [credential, setCredential] = useState("");
   const [password, setPassword] = useState("");
@@ -23,9 +23,11 @@ function LoginForm() {
       history.push('/')
     }
   };
+
   const demoLogIn = () => {
     setCredential('FakeUser1')
     setPassword('password')
+    setLogin(false)
   }
   return (
     <form

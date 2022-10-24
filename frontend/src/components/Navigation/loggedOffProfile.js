@@ -4,7 +4,7 @@ import { useDispatch } from "react-redux";
 import { useHistory } from "react-router-dom";
 import { useState, useEffect } from "react";
 
-const NoUserDrop = () => {
+const NoUserDrop = ({setShowSignup, setLogin}) => {
     const [showMenu, setShowMenu] = useState(false);
 
     const openMenu = () => {
@@ -18,8 +18,9 @@ const NoUserDrop = () => {
       const closeMenu = () => {
         setShowMenu(false);
       };
-
-      document.addEventListener('click', closeMenu);
+      setTimeout(() => {
+        document.addEventListener('click', closeMenu);
+      },100)
 
       return () => document.removeEventListener("click", closeMenu);
     }, [showMenu]);
@@ -33,8 +34,8 @@ const NoUserDrop = () => {
         </button>
         {showMenu && (
           <ul className="profile-dropdown">
-            <SignupFormModal setShowMenu={setShowMenu}/>
-            <LoginFormModal setShowMenu={setShowMenu}/>
+            <button onClick={(e) => setShowSignup(true)}>SignUp</button>
+            <button id='offModals' onClick={(e) => setLogin(true)}>Log In</button>
           </ul>
         )}
         </>

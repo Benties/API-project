@@ -1,4 +1,4 @@
-import React from 'react';
+import React, { useState } from 'react';
 import { NavLink } from 'react-router-dom';
 import { useSelector } from 'react-redux';
 import ProfileButton from './ProfileButton';
@@ -11,6 +11,10 @@ import NoUserDrop from './loggedOffProfile';
 function Navigation({ isLoaded }){
   const sessionUser = useSelector(state => state?.session?.user);
   const history = useHistory()
+  const [signup, setShowSignup] = useState(false)
+  const [login, setLogin] =  useState(false)
+
+
   let sessionLinks;
   if (sessionUser) {
     sessionLinks = (
@@ -27,7 +31,7 @@ function Navigation({ isLoaded }){
         <div className='buttHolder'>
           <NavLink className='hostingButt' to='/hosting'>Become a Host</NavLink>
         </div>
-        <NoUserDrop/>
+        <NoUserDrop setShowSignup={setShowSignup} setLogin={setLogin}/>
       </div >
     );
   }
@@ -37,6 +41,8 @@ function Navigation({ isLoaded }){
       {/* <li > */}
         <input className='logo' id='icon' type='image' src='https://i.imgur.com/CWfOQ4A.png' onClick={() => history.push('/')}></input>
         {/* <NavLink className='navContent' exact to="/">Home</NavLink> */}
+        {signup && <SignupFormModal setShowSignup={setShowSignup} signup={signup}/>}
+        {login && <LoginFormModal setLogin={setLogin} login={login}/>}
         {isLoaded && sessionLinks}
       {/* </li> */}
     </div>
