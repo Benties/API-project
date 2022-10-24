@@ -5,6 +5,7 @@
 ## Instructions to start my app
 - Clone this repository
 - Run npm install in the backend then in the frontend directory
+- In the backend, rename the .envexample file to .env
 - Make sure to have a browser open
 - Run npm start in the backend and the frontend directory
 - You must have both backend and front end servers running at the same time
