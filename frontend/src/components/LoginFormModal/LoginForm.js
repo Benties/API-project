@@ -27,7 +27,9 @@ function LoginForm({setLogin}) {
   const demoLogIn = () => {
     setCredential('FakeUser1')
     setPassword('password')
-    setLogin(false)
+    setTimeout(() => {
+      setLogin(false)
+    },100)
   }
   return (
     <form
