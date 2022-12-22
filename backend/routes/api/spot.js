@@ -9,6 +9,7 @@ const { check } = require('express-validator');
 const { handleValidationErrors } = require('../../utils/validation');
 const { Op } = require('sequelize');
 const { urlencoded } = require('express');
+const { singleMulterUpload, singlePublicFileUpload } = require('../../awsS3');
 
 const validateSpot = [
           check('address')
@@ -265,18 +266,22 @@ router.post(
 
 router.post(
     '/:spotId/images',
-    validateImg,
+    singleMulterUpload("image"),
+    // validateImg,
     requireAuth,
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
+        const spotImageUrl = await singlePublicFileUpload(req.file);
+        console.log('this is spotImageURL', spotImageUrl)
         if(spot && spot.ownerId === req.user.id){
-            const { url, preview } = req.body
+            const { preview } = req.body
             const spotImg = await SpotImage.create({
                 spotId: spot.id,
-                url,
-                preview
+                url: spotImageUrl,
+                preview:true
             })
             const resBody = await SpotImage.findByPk(spotImg.id)
+            console.log('backend resbody', resBody)
             res.json(resBody)
         } else {
             res.statusCode = 404
