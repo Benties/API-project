@@ -39,24 +39,22 @@ const deleteButton = (userid, revId) => userid === userId?.id ? <button id="dele
 
     return (
         <div className='spotReviewsContainer' >
-        <div className='rev-header'>
-            ⭐ {spot?.avgStarRating} • {spot?.numReviews}
-        </div>
-            reviews{reviews.map(ele =>
-                (<ul className="eachReview">
-                    <div className="reviewer">
-                        <div key={ele?.id}>{ele?.User?.firstName}</div>
-                        <div>{convertTimestampToMonthYear(ele?.createdAt)}</div>
-                    </div>
-                    <div className="review">{ele?.review} ⭐{ele?.stars} </div>
-                    <div className="revDeleteButt">
+            <div className='rev-header'>
+                ⭐ {spot?.avgStarRating} • {spot?.numReviews} {spot?.numReviews == 1 ? 'review' : 'reviews'}
+            </div>
+                {reviews.map(ele =>
+                    (<ul className="eachReview">
+                        <div className="reviewer">
+                            <div key={ele?.id} id='reviewer-name'>{ele?.User?.firstName}</div>
+                            <div>{convertTimestampToMonthYear(ele?.createdAt)}</div>
+                        </div>
+                        <div id="review">{ele?.review} ⭐{ele?.stars} </div>
+                        <div className="revDeleteButt">
 
-                    {deleteButton(ele?.userId, ele?.id)}
-                    </div>
-                </ul>
-
-                ))}
-
+                        {deleteButton(ele?.userId, ele?.id)}
+                        </div>
+                    </ul>
+                    ))}
         </div>
     )
 }

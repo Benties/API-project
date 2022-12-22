@@ -87,6 +87,7 @@ const EditSpot = () => {
                 <input
                     type='text'
                     name='address'
+                    placeholder='address'
                     value={address}
                     onChange={e => setAddress(e.target.value)}
                     />

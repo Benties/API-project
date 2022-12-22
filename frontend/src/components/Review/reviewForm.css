@@ -76,10 +76,3 @@
     height: 40px;
     width: 150px;
 }
-
-
-.spotReviewsContainer{
-    border: none;
-    display: flex;
-    flex-direction: column;
-}
