@@ -27,22 +27,37 @@ const deleteRev = (id) => {
     },200)
 }
 
+const convertTimestampToMonthYear = timestamp =>{
+    const date = new Date(timestamp);
+    const months = ['January', 'February', 'March', 'April', 'May', 'June', 'July', 'August', 'September', 'October', 'November', 'December'];
+    const month = months[date.getMonth()];
+    const year = date.getFullYear();
+    return `${month} ${year}`;
+  }
 const deleteButton = (userid, revId) => userid === userId?.id ? <button id="deleteButtOnRev" onClick={() => deleteRev(revId)}>Delete</button> : null
 
 
     return (
-        <div className='spotReviewsContainer' > ⭐ {spot?.avgStarRating} • {spot?.numReviews} reviews{reviews.map(ele =>
-            (<ul className="eachReview">
-                <div key={ele?.id}>{ele?.User?.firstName}: {ele?.review} ⭐{ele?.stars} </div>
-                <div className="revDeleteButt">
+        <div className='spotReviewsContainer' >
+        <div className='rev-header'>
+            ⭐ {spot?.avgStarRating} • {spot?.numReviews}
+        </div>
+            reviews{reviews.map(ele =>
+                (<ul className="eachReview">
+                    <div className="reviewer">
+                        <div key={ele?.id}>{ele?.User?.firstName}</div>
+                        <div>{convertTimestampToMonthYear(ele?.createdAt)}</div>
+                    </div>
+                    <div className="review">{ele?.review} ⭐{ele?.stars} </div>
+                    <div className="revDeleteButt">
 
-                {deleteButton(ele?.userId, ele?.id)}
-                </div>
-            </ul>
+                    {deleteButton(ele?.userId, ele?.id)}
+                    </div>
+                </ul>
 
-            ))}
+                ))}
 
-            </div>
+        </div>
     )
 }
 

@@ -114,14 +114,26 @@ export const deleteSpot = (payload) => async dispatch => {
     }
 }
 
-export const postImg = (spotId, imgUrl) => async dispatch => {
+export const postImg = (spotId, imgUrl, form) => async dispatch => {
+    // console.log(imgUrl)
+    // console.log('this is the form', form)
+    const formData = new FormData();
+    const image = imgUrl
+    // const preview = imgUrl.preview
+    // console.log('frontend img', image)
+    // formData.append('preview', preview)
+    formData.append("image", image);
+    // console.log('formmmmmmmmmmmmmmm', formData)
     const res = await csrfFetch(`/api/spots/${spotId}/images`, {
         method: 'POST',
-        headers: {'Content-Type' : 'application/json'},
-        body: JSON.stringify(imgUrl)
+        headers: {
+            "Content-Type": "multipart/form-data",
+          },
+        body: formData,
     })
     if (res.ok) {
         const imgObj = await res.json()
+        console.log('this is ressssssssssss', imgObj)
         dispatch(addImg(spotId, imgObj))
     }
 }
@@ -163,8 +175,8 @@ const spotReducer = (state = initialState, action) => {
             return newerState
         case ADD_IMG:
             const newNewState = { ...state, allSpots: {...state.allSpots}, singleSpot: {...state.singleSpot} }
-            newNewState.allSpots[action.spotId].previewImage = action.imgObj
-            newNewState.singleSpot.SpotImages.push(action.imgObj)
+            newNewState.allSpots[action.spotId].previewImage = action.imgObj.url
+            // newNewState.singleSpot.SpotImages.push(action.imgObj)
             return newNewState
         default:
             return state

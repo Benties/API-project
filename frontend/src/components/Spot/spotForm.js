@@ -18,7 +18,7 @@ const CreateSpot = () => {
     const [description, setDescription] = useState('')
     const [price, setPrice] = useState('')
     const [errors,  setErrors] = useState([])
-    const [imgUrl, setImgUrl] = useState('')
+    const [imgUrl, setImgUrl] = useState(null)
     // const [prev, setPreview] = useState(false)
 
     const testCreate = () => {
@@ -64,10 +64,10 @@ const CreateSpot = () => {
             price
         }
 
-        const imgPayload = {
-            url: imgUrl,
-            preview: true
-        }
+        // const imgPayload = {
+        //     url: imgUrl,
+        //     preview: true
+        // }
 
         if(imgUrl) {
             let createdSpot = await dispatch(postSpot(formData)).catch(
@@ -79,15 +79,21 @@ const CreateSpot = () => {
                 }
               );
             if(createdSpot){
-                dispatch(postImg(createdSpot.id, imgPayload))
+                const form = document.getElementById('form')
+                dispatch(postImg(createdSpot.id, imgUrl, form))
                 history.push(`/`)
             }
         } else {
             setErrors(['Image Url is required'])
         }
     }
+
+    const updateFile = (e) => {
+        const file = e.target.files[0];
+        if (file) setImgUrl(file);
+      };
     return (
-            <form onSubmit={onSubmit} className='createSpotForm'>
+            <form onSubmit={onSubmit} className='createSpotForm' id='form'>
                 <ul className='errors'>
                   {errors.map((error, idx) => (
                     <li key={idx}> <i className='fa fa-exclamation-circle' /> {error}</li>
@@ -144,17 +150,17 @@ const CreateSpot = () => {
                         value={price}
                         onChange={e => setPrice(e.target.value)}
                         />
-                    <input
-                        type='text'
-                        name='imageUrl'
-                        placeholder='Image Url'
-                        value={imgUrl}
-                        onChange={e => setImgUrl(e.target.value)}
-                        />
+                    <label for='file-upload' className='spot-upload-label'>
+                        Spot Image :
+                        <input
+                            id='file-upload'
+                            type="file"
+                            onChange={updateFile} />
+                    </label>
                 </label>
                 <div className='createbuttContainer'>
                     <button id='postNewSpot'>Post</button>
-                    <button id='testCreateSpot' onClick={testCreate}>Testing</button>
+                    {/* <button id='testCreateSpot' onClick={testCreate}>Testing</button> */}
                 </div>
             </form>
     )
