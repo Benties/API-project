@@ -25,9 +25,9 @@
     display: flex;
     /* flex-direction: column; */
     box-sizing: border-box;
-    /* overflow-y: auto; */
-    /* text-overflow: ellipsis; */
-    word-break: break-all;
+    /* overflow-y: hidden; */
+    word-break:break-all;
+    /* text-overflow:clip; */
     white-space: normal;
     /* max-width: 90; */
     height: fit-content;
