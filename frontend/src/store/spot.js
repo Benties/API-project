@@ -133,7 +133,6 @@ export const postImg = (spotId, imgUrl, form) => async dispatch => {
     })
     if (res.ok) {
         const imgObj = await res.json()
-        console.log('this is ressssssssssss', imgObj)
         dispatch(addImg(spotId, imgObj))
     }
 }

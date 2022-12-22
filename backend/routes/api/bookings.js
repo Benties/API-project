@@ -22,7 +22,6 @@ router.delete(
                 }
             ]
         })
-        // console.log(booking)
         if(booking){
             if(booking.userId === req.user.id || booking.Spot.ownerId === req.user.id){
             }

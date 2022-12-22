@@ -28,6 +28,36 @@ module.exports = {
         url: 'https://i.imgur.com/bJhQYx1.jpg',
         preview: true
       },
+      {
+        spotId: 6,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
+      {
+        spotId: 7,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
+      {
+        spotId: 8,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
+      {
+        spotId: 9,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
+      {
+        spotId: 10,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
+      {
+        spotId: 11,
+        url: 'https://i.imgur.com/bJhQYx1.jpg',
+        preview: true
+      },
     ])
   },
 

@@ -63,6 +63,78 @@ module.exports = {
         description: 'Located in Downtown Manhattan waterfront',
         price: 800
       },
+      {
+        ownerId: 5,
+        address: '42nd Street',
+        city: 'New York',
+        state: 'NY',
+        country: 'USA',
+        lat: 38.23423,
+        lng: -70.14214,
+        name: 'Times Square Building',
+        description: 'Located in Times Square',
+        price: 1210
+      },
+      {
+        ownerId: 5,
+        address: '229 Spring Street',
+        city: 'New York',
+        state: 'NY',
+        country: 'USA',
+        lat: 38.5122,
+        lng: -70.124124,
+        name: 'Manhattan Skyline',
+        description: 'Located in Downtown Manhattan',
+        price: 1450
+      },
+      {
+        ownerId: 5,
+        address: '300 Spring Street',
+        city: 'New York',
+        state: 'NY',
+        country: 'USA',
+        lat: 35.5122,
+        lng: -71.124,
+        name: 'Freedom Towers',
+        description: 'Located in Downtown Manhattan',
+        price: 2050
+      },
+      {
+        ownerId: 5,
+        address: '229 Apple Street',
+        city: 'Brooklyn',
+        state: 'NY',
+        country: 'USA',
+        lat: 38.5122,
+        lng: -70.124124,
+        name: 'Brooklyn Hangers',
+        description: 'Located in Downtown Brooklyn',
+        price: 1650
+      },
+      {
+        ownerId: 5,
+        address: '57 Maple Street',
+        city: 'New York',
+        state: 'NY',
+        country: 'USA',
+        lat: 48.5122,
+        lng: -52.124124,
+        name: 'Tree Towers',
+        description: 'Located in Downtown Manhattan',
+        price: 1950
+      },
+      {
+        ownerId: 5,
+        address: '19 Broad Street',
+        city: 'New York',
+        state: 'NY',
+        country: 'USA',
+        lat: 38.5122,
+        lng: -70.124124,
+        name: 'ChinaTown Square',
+        description: 'Located in Chinatown',
+        price: 2450
+      },
     ])
   },
 
