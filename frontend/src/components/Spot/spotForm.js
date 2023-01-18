@@ -155,7 +155,8 @@ const CreateSpot = () => {
                         <input
                             id='file-upload'
                             type="file"
-                            onChange={updateFile} />
+                            onChange={updateFile}
+                            accept='.jpg, .png' />
                     </label>
                 </label>
                 <div className='createbuttContainer'>
