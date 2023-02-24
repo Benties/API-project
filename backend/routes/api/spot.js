@@ -353,11 +353,17 @@ router.get(
 /// GET ALL BOOKINGS BASED ON SPOT ID
 router.get(
     '/:spotId/bookings',
-    requireAuth,
+    // requireAuth,
     async (req, res, next) => {
         const spot = await Spot.findByPk(req.params.spotId)
+        let x
         if(spot){
-            spot.ownerId === req.user.id ? x = [null, { model: User }] : x = ['customer', null]
+            if(req.user){
+                spot.ownerId === req.user.id ? x = [null, { model: User }] : x = ['customer', null]
+            } else {
+                x = ['customer', null]
+            }
+
             const booking = await Booking.scope(x[0]).findAll({
                 where: {spotId: spot.id},
                 include:  x[1]
